@@ -36,6 +36,9 @@ public class Test
 //    List<Answer> answers = StackAppClient.getAnswersForQuestion(2892605);
 //    System.err.println(answers);
 
+//    List<PostTimeline> postTimelines = StackAppClient.getTimelineForQuestion(2892605);
+//    System.err.println(postTimelines);
+
 //    List<Comment> comments = StackAppClient.getCommentsForQuestion(2892605);
 //    System.err.println(comments);
 
@@ -66,7 +69,16 @@ public class Test
 //    List<Comment> mentions = StackAppClient.getMentionsForUser(25343);
 //    System.err.println(mentions);
 
-    List<Question> questions = StackAppClient.getQuestionsForUser(25343);
-    System.err.println(questions);
+//    List<Question> questions = StackAppClient.getQuestionsForUser(25343);
+//    System.err.println(questions);
+
+//    List<RepChange> repChanges = StackAppClient.getReputationForUser(25343);
+//    System.err.println(repChanges);
+
+//    List<Tag> tags = StackAppClient.getTagsForUser(25343);
+//    System.err.println(tags);
+
+//    List<UserTimeline> userTimelines = StackAppClient.getTimelineForUser(25343);
+//    System.err.println(userTimelines);
   }
 }

@@ -1,7 +1,6 @@
 package net.ioncannon.stackapps.api.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlElement;
 import java.util.Arrays;
 
 /**
@@ -10,18 +9,18 @@ import java.util.Arrays;
  */
 
 @XmlRootElement
-public class Tags
+public class TagList extends StackAppResponse
 {
   private long total;
   private long page;
   private long pagesize;
   private Tag tags[];
 
-  public Tags()
+  public TagList()
   {
   }
 
-  public Tags(long total, long page, long pagesize, Tag[] tags)
+  public TagList(long total, long page, long pagesize, Tag[] tags)
   {
     this.total = total;
     this.page = page;
@@ -72,56 +71,11 @@ public class Tags
   @Override
   public String toString()
   {
-    return "Tags{" +
+    return "TagList{" +
         "total=" + total +
         ", page=" + page +
         ", pagesize=" + pagesize +
         ", tags=" + (tags == null ? null : Arrays.asList(tags)) +
         '}';
-  }
-
-  public static class Tag
-  {
-    private String name;
-    private long count;
-
-    public Tag()
-    {
-    }
-
-    public Tag(String name, long count)
-    {
-      this.name = name;
-      this.count = count;
-    }
-
-    public String getName()
-    {
-      return name;
-    }
-
-    public void setName(String name)
-    {
-      this.name = name;
-    }
-
-    public long getCount()
-    {
-      return count;
-    }
-
-    public void setCount(long count)
-    {
-      this.count = count;
-    }
-
-    @Override
-    public String toString()
-    {
-      return "Tag{" +
-          "name='" + name + '\'' +
-          ", count=" + count +
-          '}';
-    }
   }
 }

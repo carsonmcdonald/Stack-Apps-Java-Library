@@ -132,16 +132,7 @@ public class StackAppClient
     request.pushPath("users");
     request.pushPath(badgeId);
 
-    UserList userList = executeRequest(request, UserList.class);
-
-    List<User> users = new ArrayList<User>();
-
-    if(userList != null && userList.getUsers() != null)
-    {
-      users.addAll(Arrays.asList(userList.getUsers()));
-    }
-
-    return users;
+    return getUsersInternal(request);
   }
 
   /**
@@ -273,25 +264,24 @@ public class StackAppClient
    * @return A List of Comments.
    * @throws StackAppError Thrown when there is an api error.
    */
-  /* todo
-  public static List<Timeline> getTimelineForQuestion(long questionId) throws StackAppError
+  public static List<PostTimeline> getTimelineForQuestion(long questionId) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
     request.pushPath(questionId);
-    request.pushPath("comments");
+    request.pushPath("timeline");
 
-    CommentList commentList = executeRequest(request, CommentList.class);
+    PostTimelineList postTimelineListList = executeRequest(request, PostTimelineList.class);
 
-    List<Comment> comments = new ArrayList<Comment>();
+    List<PostTimeline> postTimelines = new ArrayList<PostTimeline>();
 
-    if(commentList != null && commentList.getCommentsInternal() != null)
+    if(postTimelineListList != null && postTimelineListList.getTimelines() != null)
     {
-      comments.addAll(Arrays.asList(commentList.getCommentsInternal()));
+      postTimelines.addAll(Arrays.asList(postTimelineListList.getTimelines()));
     }
 
-    return comments;
-  }     */
+    return postTimelines;
+  }
 
   /**
    * /questions/tagged/{tags} 	Gets questions that are tagged with "tags". By default, ordered by last activity, date descending.
@@ -344,16 +334,7 @@ public class StackAppClient
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
 
-    UserList userList = executeRequest(request, UserList.class);
-
-    List<User> users = new ArrayList<User>();
-
-    if(userList != null && userList.getUsers() != null)
-    {
-      users.addAll(Arrays.asList(userList.getUsers()));
-    }
-
-    return users;
+    return getUsersInternal(request);
   }
 
   /**
@@ -485,11 +466,83 @@ public class StackAppClient
     return getQuestionsInternal(request);
   }
 
-  // todo /users/{id}/reputation 	Gets information on reputation changes for user with 'id'.
+  /**
+   * /users/{id}/reputation 	Gets information on reputation changes for user with 'id'.
+   *                               todo
+   * @param userId The user id to get reputation for.
+   * @return A List of rep changes.
+   * @throws StackAppError Thrown when there is an api error.
+   */
+  public static List<RepChange> getReputationForUser(long userId) throws StackAppError
+  {
+    StackAppRequest request = new StackAppRequest();
+    request.pushPath("users");
+    request.pushPath(userId);
+    request.pushPath("reputation");
 
-  // todo /users/{id}/tags 	Gets the tags that the user with 'id' has participated in.
+    RepChangeList repChangeList = executeRequest(request, RepChangeList.class);
 
-  // todo /users/{id}/timeline 	Gets actions the user with 'id' has performed in descending chronological order.
+    List<RepChange> repChanges = new ArrayList<RepChange>();
+
+    if(repChangeList != null && repChangeList.getRepChanges() != null)
+    {
+      repChanges.addAll(Arrays.asList(repChangeList.getRepChanges()));
+    }
+
+    return repChanges;
+  }
+
+  /**
+   * /users/{id}/tags 	Gets the tags that the user with 'id' has participated in.
+   *
+   * @param userId The user id to get tags for.
+   * @return A List of tags for the given user id.
+   * @throws StackAppError Thrown when there is an api error.
+   */
+  public static List<Tag> getTagsForUser(long userId) throws StackAppError
+  {
+    StackAppRequest request = new StackAppRequest();
+    request.pushPath("users");
+    request.pushPath(userId);
+    request.pushPath("tags");
+
+    TagList tagList = executeRequest(request, TagList.class);
+
+    List<Tag> tags = new ArrayList<Tag>();
+
+    if(tagList != null && tagList.getTags() != null)
+    {
+      tags.addAll(Arrays.asList(tagList.getTags()));
+    }
+
+    return tags;
+  }
+
+  /**
+   * /users/{id}/timeline 	Gets actions the user with 'id' has performed in descending chronological order.
+   *
+   * @param userId The user id to get a timeline for.
+   * @return A List of timeline entries.
+   * @throws StackAppError Thrown when there is an api error.
+   */
+  public static List<UserTimeline> getTimelineForUser(long userId) throws StackAppError
+  {
+    StackAppRequest request = new StackAppRequest();
+    request.pushPath("users");
+    request.pushPath(userId);
+    request.pushPath("timeline");
+
+    UserTimelineList userTimelineList = executeRequest(request, UserTimelineList.class);
+
+    List<UserTimeline> userTimelines = new ArrayList<UserTimeline>();
+
+    if(userTimelineList != null && userTimelineList.getTimelines() != null)
+    {
+      userTimelines.addAll(Arrays.asList(userTimelineList.getTimelines()));
+    }
+
+    return userTimelines;
+  }
 
   private static List<Question> getQuestionsInternal(StackAppRequest request)
   {
@@ -545,5 +598,19 @@ public class StackAppClient
     }
 
     return badges;
+  }
+
+  private static List<User> getUsersInternal(StackAppRequest request)
+  {
+    UserList userList = executeRequest(request, UserList.class);
+
+    List<User> users = new ArrayList<User>();
+
+    if(userList != null && userList.getUsers() != null)
+    {
+      users.addAll(Arrays.asList(userList.getUsers()));
+    }
+
+    return users;
   }
 }
