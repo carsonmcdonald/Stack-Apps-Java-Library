@@ -22,6 +22,8 @@ public class StackAppClient
     client.addFilter(new GZIPContentEncodingFilter());
   }
 
+  private static String apiKey = null;
+
   private static void processResponseForErrors(ClientResponse response) throws StackAppError
   {
     switch(response.getStatus())
@@ -37,10 +39,21 @@ public class StackAppClient
     }
   }
 
+  public static void setKey(String key)
+  {
+    apiKey = key;
+  }
+
   private static <T extends StackAppResponse> T executeRequest(StackAppRequest request, Class<T> tClass) throws StackAppError
   {
     try
     {
+      if(apiKey != null)
+      {
+        System.err.println("Setting key...");
+        request.addQueryPart("key", apiKey);
+      }
+
       WebResource webResource = request.constructResource(client);
 
       ClientResponse response = webResource.get(ClientResponse.class);

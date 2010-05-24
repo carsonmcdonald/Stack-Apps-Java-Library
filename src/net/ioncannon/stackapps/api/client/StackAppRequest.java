@@ -5,6 +5,8 @@ import com.sun.jersey.api.client.Client;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  */
@@ -14,6 +16,7 @@ public class StackAppRequest
   private static final String API_VERSION = "0.8";
 
   private List<String> pathParts = new ArrayList<String>();
+  private Map<String, String> queryParts = new HashMap<String, String>();
 
   public void pushPath(String pathPart)
   {
@@ -25,6 +28,11 @@ public class StackAppRequest
     pathParts.add(String.valueOf(pathPart));
   }
 
+  public void addQueryPart(String key, String value)
+  {
+    queryParts.put(key, value);
+  }
+
   public WebResource constructResource(Client client)
   {
     WebResource resource = client.resource(BASE_URL).path(API_VERSION);
@@ -32,6 +40,11 @@ public class StackAppRequest
     for(String pathPart : pathParts)
     {
       resource = resource.path(pathPart);
+    }
+
+    for(String key : queryParts.keySet())
+    {
+      resource = resource.queryParam(key, queryParts.get(key));
     }
 
     return resource;

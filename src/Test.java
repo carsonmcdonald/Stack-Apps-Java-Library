@@ -9,6 +9,8 @@ public class Test
 {
   public static void main(String[] args)
   {
+//    StackAppClient.setKey("<a key>");
+
 //    Answer answer = StackAppClient.getAnswer(2491514);
 //    System.err.println(answer);
 
