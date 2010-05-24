@@ -26,34 +26,12 @@ import net.ioncannon.stackapps.api.client.StackAppRequest;
 
 /**
  */
-public class AnswersForUserRequest extends UsersBaseRequest<AnswersForUserRequest>
+public abstract class BaseRequestConfiguration
 {
-  public static AnswersForUserRequest start()
+  protected StackAppRequest stackAppRequest = new StackAppRequest();
+
+  public void mergeIntoRequest(StackAppRequest originalStackAppRequest)
   {
-    return new AnswersForUserRequest();
-  }
-
-/**
-body (optional)
-
-    * When "true", a post's body will be included in the response. Default is "false".
-    * boolean
-    */
-  public AnswersForUserRequest withBody(Boolean body)
-  {
-    stackAppRequest.addQueryPart("body", body);
-    return this;
-  }
-
-/**
-comments (optional)
-
-    * When "true", any comments on a post will be included in the response. Default is "false".
-    * boolean
-    */
-  public AnswersForUserRequest withComments(Boolean comments)
-  {
-    stackAppRequest.addQueryPart("comments", comments);
-    return this;
+    stackAppRequest.mergeIntoRequest(originalStackAppRequest);
   }
 }

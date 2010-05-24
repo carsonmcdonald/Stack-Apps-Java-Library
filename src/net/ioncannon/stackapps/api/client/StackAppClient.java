@@ -113,7 +113,7 @@ public class StackAppClient
    * @return An answer if one is found, null otherwise.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static Answer getAnswer(long answerId, AnswerRequest answerRequest) throws StackAppError
+  public static Answer getAnswer(long answerId, AnswerRequestConfiguration answerRequest) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("answers");
@@ -150,7 +150,7 @@ public class StackAppClient
    * @return A List of comments for the given answer id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Comment> getAnswerComments(long answerId, AnswerCommentsRequest requestConfiguration) throws StackAppError
+  public static List<Comment> getAnswerComments(long answerId, AnswerCommentsRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("answers");
@@ -192,7 +192,7 @@ public class StackAppClient
    * @return A List of users who have the given badge.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<User> getUsersWhoHaveBadge(long badgeId, UsersWhoHaveBadgeRequest requestConfiguration) throws StackAppError
+  public static List<User> getUsersWhoHaveBadge(long badgeId, UsersWhoHaveBadgeRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -249,7 +249,7 @@ public class StackAppClient
    * @return The Comment with the given id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static Comment getComment(long commentId, CommentRequest requestConfiguration) throws StackAppError
+  public static Comment getComment(long commentId, CommentRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("comments");
@@ -300,7 +300,7 @@ public class StackAppClient
    * @return A List of questions.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Question> getQuestions(QuestionRequest requestConfiguration) throws StackAppError
+  public static List<Question> getQuestions(QuestionRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
@@ -326,7 +326,7 @@ public class StackAppClient
    * @return The question with the given question id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static Question getQuestionById(long questionId, QuestionByIdRequest requestConfiguration) throws StackAppError
+  public static Question getQuestionById(long questionId, QuestionByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
@@ -362,7 +362,7 @@ public class StackAppClient
    * @return A List of Answers.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Answer> getAnswersForQuestion(long questionId, QuestionByIdRequest requestConfiguration) throws StackAppError
+  public static List<Answer> getAnswersForQuestion(long questionId, QuestionByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
@@ -390,7 +390,7 @@ public class StackAppClient
    * @return A List of Comments.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Comment> getCommentsForQuestion(long questionId, CommentsForQuestionRequest requestConfiguration) throws StackAppError
+  public static List<Comment> getCommentsForQuestion(long questionId, CommentsForQuestionRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
@@ -444,7 +444,7 @@ public class StackAppClient
    * @return A List of Questions.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Question> getQuestionsForTag(String tag, QuestionByIdRequest requestConfiguration) throws StackAppError
+  public static List<Question> getQuestionsForTag(String tag, QuestionByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
@@ -471,7 +471,7 @@ public class StackAppClient
    * @return A List of Questions.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Question> getUnansweredQuestions(QuestionRequest requestConfiguration) throws StackAppError
+  public static List<Question> getUnansweredQuestions(QuestionRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
@@ -497,7 +497,7 @@ public class StackAppClient
    * @param requestConfiguration The configuration to use for this request.
    * @return A list of revisions for the given post id.
    */
-  public static List<Revision> getRevisionsById(long postId, RevisionRequestConfig requestConfiguration)
+  public static List<Revision> getRevisionsById(long postId, RevisionRequestConfigConfiguration requestConfiguration)
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("revisions");
@@ -533,7 +533,7 @@ public class StackAppClient
    * @param requestConfiguration The configuration to use for this request.
    * @return A list of revisions for the given post id.
    */
-  public static Revision getRevisionsByIdWithGuid(long postId, String revisionGuid, RevisionRequestConfig requestConfiguration)
+  public static Revision getRevisionsByIdWithGuid(long postId, String revisionGuid, RevisionRequestConfigConfiguration requestConfiguration)
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("revisions");
@@ -592,7 +592,7 @@ public class StackAppClient
    * @return A List of Tags.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Tag> getTags(TagsRequest requestConfiguration) throws StackAppError
+  public static List<Tag> getTags(TagsRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("tags");
@@ -617,7 +617,7 @@ public class StackAppClient
    * @return A List of Users.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<User> getUsers(UsersRequest requestConfiguration) throws StackAppError
+  public static List<User> getUsers(UsersRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -643,7 +643,7 @@ public class StackAppClient
    * @return The user idtentified by the given id.
    * @throws StackAppError hrown when there is an api error.
    */
-  public static User getUser(long userId, UsersByIdRequest requestConfiguration) throws StackAppError
+  public static User getUser(long userId, UsersByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -679,7 +679,7 @@ public class StackAppClient
    * @return List of answers for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Answer> getAnswersForUser(long userId, AnswersForUserRequest requestConfiguration) throws StackAppError
+  public static List<Answer> getAnswersForUser(long userId, AnswersForUserRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -724,7 +724,7 @@ public class StackAppClient
    * @return List of Comments for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Comment> getCommentsForUser(long userId, UsersByIdRequest requestConfiguration) throws StackAppError
+  public static List<Comment> getCommentsForUser(long userId, UsersByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -753,7 +753,7 @@ public class StackAppClient
    * @return List of Comments for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Comment> getCommentsForUserThatMentionUser(long userId, long mentionedUserId, UsersByIdRequest requestConfiguration)
+  public static List<Comment> getCommentsForUserThatMentionUser(long userId, long mentionedUserId, UsersByIdRequestConfiguration requestConfiguration)
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -782,7 +782,7 @@ public class StackAppClient
    * @return List of favorite questions for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Question> getFavoritesForUser(long userId, AnswersForUserRequest requestConfiguration) throws StackAppError
+  public static List<Question> getFavoritesForUser(long userId, AnswersForUserRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -810,7 +810,7 @@ public class StackAppClient
    * @return A List of comments that the user was mentioned in.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Comment> getMentionsForUser(long userId, AnswersForUserRequest requestConfiguration) throws StackAppError
+  public static List<Comment> getMentionsForUser(long userId, AnswersForUserRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -838,7 +838,7 @@ public class StackAppClient
    * @return A List of questions for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Question> getQuestionsForUser(long userId, AnswersForUserRequest requestConfiguration) throws StackAppError
+  public static List<Question> getQuestionsForUser(long userId, AnswersForUserRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -866,7 +866,7 @@ public class StackAppClient
    * @return A List of rep changes.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<RepChange> getReputationForUser(long userId, ReputationForUserRequest requestConfiguration) throws StackAppError
+  public static List<RepChange> getReputationForUser(long userId, ReputationForUserRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -903,7 +903,7 @@ public class StackAppClient
    * @return A List of tags for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Tag> getTagsForUser(long userId, UsersRequest requestConfiguration) throws StackAppError
+  public static List<Tag> getTagsForUser(long userId, UsersRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
@@ -931,7 +931,7 @@ public class StackAppClient
    * @return A List of timeline entries.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<UserTimeline> getTimelineForUser(long userId, UsersByIdRequest requestConfiguration) throws StackAppError
+  public static List<UserTimeline> getTimelineForUser(long userId, UsersByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");

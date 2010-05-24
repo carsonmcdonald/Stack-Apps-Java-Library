@@ -22,16 +22,12 @@
 
 package net.ioncannon.stackapps.api.request;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
-
 /**
  */
-public abstract class BaseRequest
+public class AnswerCommentsRequestConfiguration extends AnswerBaseRequestConfiguration<AnswerCommentsRequestConfiguration>
 {
-  protected StackAppRequest stackAppRequest = new StackAppRequest();
-
-  public void mergeIntoRequest(StackAppRequest originalStackAppRequest)
+  public static AnswerCommentsRequestConfiguration start()
   {
-    stackAppRequest.mergeIntoRequest(originalStackAppRequest);
+    return new AnswerCommentsRequestConfiguration();
   }
 }

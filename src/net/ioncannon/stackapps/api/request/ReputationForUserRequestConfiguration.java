@@ -22,61 +22,66 @@
 
 package net.ioncannon.stackapps.api.request;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
-
 /**
  */
-public class UsersWhoHaveBadgeRequest extends BaseRequest
+public class ReputationForUserRequestConfiguration extends BaseRequestConfiguration
 {
-  public static UsersWhoHaveBadgeRequest start()
+  public static ReputationForUserRequestConfiguration start()
   {
-    return new UsersWhoHaveBadgeRequest();
+    return new ReputationForUserRequestConfiguration();
   }
 
-/**
-fromdate (optional)
-
-    * Unix timestamp of the minimum creation date on a returned item.
-    * number
-    */
-  public UsersWhoHaveBadgeRequest withFromDate(Long fromDate)
+  /**
+   * fromdate (optional)
+   * <p/>
+   * Unix timestamp of the minimum creation date on a returned item.
+   *
+   * @param fromDate The starting date.
+   * @return The current configuration.
+   */
+  public ReputationForUserRequestConfiguration withFromDate(Long fromDate)
   {
     stackAppRequest.addQueryPart("fromdate", fromDate);
     return this;
   }
 
-/**
-todate (optional)
-
-    * Unix timestamp of the maximum creation date on a returned item.
-    * number
-    */
-  public UsersWhoHaveBadgeRequest withToDate(Long toDate)
+  /**
+   * todate (optional)
+   * <p/>
+   * Unix timestamp of the maximum creation date on a returned item.
+   *
+   * @param toDate The ending date.
+   * @return The current configuration.
+   */
+  public ReputationForUserRequestConfiguration withToDate(Long toDate)
   {
     stackAppRequest.addQueryPart("todate", toDate);
     return this;
   }
 
-
-/**
-page (optional)
-
-    * The pagination offset for the current collection. Affected by the specified pagesize.
-    * number
-    */
-  public UsersWhoHaveBadgeRequest withPage(Integer page)
+  /**
+   * page (optional)
+   * <p/>
+   * The pagination offset for the current collection. Affected by the specified pagesize.
+   *
+   * @param page The current page
+   * @return The current configuration.
+   */
+  public ReputationForUserRequestConfiguration withPage(Integer page)
   {
     stackAppRequest.addQueryPart("page", page);
     return this;
   }
 
-/**
-pagesize (optional)
-
-    * The number of collection results to display during pagination. Should be between 1 and 100 inclusive.
-    * number
-    */
-  public UsersWhoHaveBadgeRequest withPageSize(Integer pageSize)
+  /**
+   * pagesize (optional)
+   * <p/>
+   * The number of collection results to display during pagination. Should be between 1 and 100 inclusive.
+   *
+   * @param pageSize The size of the page to return.
+   * @return The current configuration.
+   */
+  public ReputationForUserRequestConfiguration withPageSize(Integer pageSize)
   {
     stackAppRequest.addQueryPart("pagesize", pageSize);
     return this;

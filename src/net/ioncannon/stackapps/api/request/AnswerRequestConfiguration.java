@@ -22,26 +22,40 @@
 
 package net.ioncannon.stackapps.api.request;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
-
 /**
  */
-public class UsersRequest extends UsersBaseRequest<UsersRequest>
+public class AnswerRequestConfiguration extends AnswerBaseRequestConfiguration<AnswerRequestConfiguration>
 {
-  public static UsersRequest start()
+  public static AnswerRequestConfiguration start()
   {
-    return new UsersRequest();
+    return new AnswerRequestConfiguration();
   }
 
   /**
- filter (optional)
-
-    * String that must appear in returned users' names
-    *     * string
-  */
-  public UsersRequest withFilter(String filter)
+   * body (optional)
+   * <p/>
+   * When "true", a post's body will be included in the response. Default is "false".
+   *
+   * @param body Return the body or not.
+   * @return The current configuration.
+   */
+  public AnswerRequestConfiguration withBody(Boolean body)
   {
-    stackAppRequest.addQueryPart("filter", filter);
+    stackAppRequest.addQueryPart("body", body);
+    return this;
+  }
+
+  /**
+   * comments (optional)
+   * <p/>
+   * When "true", any comments on a post will be included in the response. Default is "false".
+   *
+   * @param comments Return the comments or not.
+   * @return The current configuration.
+   */
+  public AnswerRequestConfiguration withComments(Boolean comments)
+  {
+    stackAppRequest.addQueryPart("comments", comments);
     return this;
   }
 }

@@ -22,14 +22,12 @@
 
 package net.ioncannon.stackapps.api.request;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
-
 /**
  */
-public class UsersByIdRequest extends UsersBaseRequest<UsersByIdRequest>
+public class CommentsForQuestionRequestConfiguration extends QuestionBaseRequestConfiguration<CommentsForQuestionRequestConfiguration>
 {
-  public static UsersByIdRequest start()
+  public static CommentsForQuestionRequestConfiguration start()
   {
-    return new UsersByIdRequest();
+    return new CommentsForQuestionRequestConfiguration();
   }
 }

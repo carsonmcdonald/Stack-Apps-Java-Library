@@ -22,14 +22,26 @@
 
 package net.ioncannon.stackapps.api.request;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
-
 /**
  */
-public class CommentsForQuestionRequest extends QuestionBaseRequest<CommentsForQuestionRequest>
+public class UsersRequestConfiguration extends UsersBaseRequestConfiguration<UsersRequestConfiguration>
 {
-  public static CommentsForQuestionRequest start()
+  public static UsersRequestConfiguration start()
   {
-    return new CommentsForQuestionRequest();
+    return new UsersRequestConfiguration();
+  }
+
+  /**
+   * filter (optional)
+   * <p/>
+   * String that must appear in returned users' names
+   *
+   * @param filter The filter to apply to the users names.
+   * @return The current configuration.
+   */
+  public UsersRequestConfiguration withFilter(String filter)
+  {
+    stackAppRequest.addQueryPart("filter", filter);
+    return this;
   }
 }

@@ -24,40 +24,38 @@ package net.ioncannon.stackapps.api.request;
 
 /**
  */
-public class RevisionRequestConfig extends BaseRequest
+public class AnswersForUserRequestConfiguration extends UsersBaseRequestConfiguration<AnswersForUserRequestConfiguration>
 {
-  public static RevisionRequestConfig start()
+  public static AnswersForUserRequestConfiguration start()
   {
-    return new RevisionRequestConfig();
+    return new AnswersForUserRequestConfiguration();
   }
 
   /**
-   * fromDate (optional)
-
-    * start date to list revisions from
-    * number
-
-   * @param fromDate
-   * @return
+   * body (optional)
+   * <p/>
+   * When "true", a post's body will be included in the response. Default is "false".
+   *
+   * @param body Return the body or not.
+   * @return The current configuration.
    */
-  public RevisionRequestConfig withFromDate(Long fromDate)
+  public AnswersForUserRequestConfiguration withBody(Boolean body)
   {
-    stackAppRequest.addQueryPart("fromdate", fromDate);
+    stackAppRequest.addQueryPart("body", body);
     return this;
   }
 
   /**
-   * toDate (optional)
-
-    * date to stop listing revisions at
-    * number
-
-   * @param toDate
-   * @return
+   * comments (optional)
+   * <p/>
+   * When "true", any comments on a post will be included in the response. Default is "false".
+   *
+   * @param comments Return the comments or not.
+   * @return The current configuration.
    */
-  public RevisionRequestConfig withToDate(Long toDate)
+  public AnswersForUserRequestConfiguration withComments(Boolean comments)
   {
-    stackAppRequest.addQueryPart("todate", toDate);
+    stackAppRequest.addQueryPart("comments", comments);
     return this;
   }
 }

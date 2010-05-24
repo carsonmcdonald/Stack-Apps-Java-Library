@@ -20,17 +20,11 @@
  * THE SOFTWARE.
  */
 
-import net.ioncannon.stackapps.api.response.*;
 import net.ioncannon.stackapps.api.response.Error;
 import net.ioncannon.stackapps.api.client.StackAppClient;
-import net.ioncannon.stackapps.api.request.RevisionRequestConfig;
-import net.ioncannon.stackapps.api.request.UsersByIdRequest;
-
-import java.util.List;
 
 /**
  * todo need to make javadoc task in ant build
- * todo need to rename requests to RequestConfig
  */
 public class Test
 {
@@ -41,13 +35,13 @@ public class Test
 //    Answer answer = StackAppClient.getAnswer(2491514);
 //    System.err.println(answer);
 
-//    Answer answer = StackAppClient.getAnswer(2491514, AnswerRequest.start().withBody(true));
+//    Answer answer = StackAppClient.getAnswer(2491514, AnswerRequestConfiguration.start().withBody(true));
 //    System.err.println(answer);
 
 //    List<Comment> comments = StackAppClient.getAnswerComments(2892638);
 //    System.err.println(comments);
 
-//    List<Comment> comments = StackAppClient.getAnswerComments(2892638, AnswerCommentsRequest.start().withSort("votes"));
+//    List<Comment> comments = StackAppClient.getAnswerComments(2892638, AnswerCommentsRequestConfiguration.start().withSort("votes"));
 //    System.err.println(comments);
 
 //    List<Badge> badges = StackAppClient.getBadges();
@@ -56,7 +50,7 @@ public class Test
 //    List<User> users = StackAppClient.getUsersWhoHaveBadge(9);
 //    System.err.println(users);
 
-//    List<User> users = StackAppClient.getUsersWhoHaveBadge(9, UsersWhoHaveBadgeRequest.start().withPage(1));
+//    List<User> users = StackAppClient.getUsersWhoHaveBadge(9, UsersWhoHaveBadgeRequestConfiguration.start().withPage(1));
 //    System.err.println(users);
 
 //    List<Badge> badges = StackAppClient.getNonTagBasedBadges();
@@ -68,7 +62,7 @@ public class Test
 //    Comment comment = StackAppClient.getComment(2941458);
 //    System.err.println(comment);
 
-//    Comment comment = StackAppClient.getComment(2941458, CommentRequest.start().withPage(1));
+//    Comment comment = StackAppClient.getComment(2941458, CommentRequestConfiguration.start().withPage(1));
 //    System.err.println(comment);
 
     Error error = StackAppClient.getError(4002);
@@ -77,13 +71,13 @@ public class Test
 //    List<Question> questions = StackAppClient.getQuestions();
 //    System.err.println(questions);
 
-//    List<Question> questions = StackAppClient.getQuestions(QuestionRequest.start().withPage(2));
+//    List<Question> questions = StackAppClient.getQuestions(QuestionRequestConfiguration.start().withPage(2));
 //    System.err.println(questions);
 
 //    Question question = StackAppClient.getQuestionById(2892605);
 //    System.err.println(question);
 
-//    Question question = StackAppClient.getQuestionById(2892605, QuestionByIdRequest.start().withPage(1));
+//    Question question = StackAppClient.getQuestionById(2892605, QuestionByIdRequestConfiguration.start().withPage(1));
 //    System.err.println(question);
 
 //    List<Answer> answers = StackAppClient.getAnswersForQuestion(2892605);
@@ -98,31 +92,31 @@ public class Test
 //    List<Comment> comments = StackAppClient.getCommentsForQuestion(2892605);
 //    System.err.println(comments);
 
-//    List<Comment> comments = StackAppClient.getCommentsForQuestion(2892605, CommentsForQuestionRequest.start().withPage(1));
+//    List<Comment> comments = StackAppClient.getCommentsForQuestion(2892605, CommentsForQuestionRequestConfiguration.start().withPage(1));
 //    System.err.println(comments);
 
 //    List<Question> questions = StackAppClient.getQuestionsForTag("java");
 //    System.err.println(questions);
 
-//    List<Question> questions = StackAppClient.getQuestionsForTag("java", QuestionByIdRequest.start().withPage(2));
+//    List<Question> questions = StackAppClient.getQuestionsForTag("java", QuestionByIdRequestConfiguration.start().withPage(2));
 //    System.err.println(questions);
 
 //    List<Question> questions = StackAppClient.getUnansweredQuestions();
 //    System.err.println(questions);
 
-//    List<Question> questions = StackAppClient.getUnansweredQuestions(QuestionRequest.start().withPage(2));
+//    List<Question> questions = StackAppClient.getUnansweredQuestions(QuestionRequestConfiguration.start().withPage(2));
 //    System.err.println(questions);
 
 //    List<Revision> revisions = StackAppClient.getRevisionsById(2899207);
 //    System.err.println(revisions);
 
-//    List<Revision> revisions = StackAppClient.getRevisionsById(2899207, RevisionRequestConfig.start().withFromDate(1000L));
+//    List<Revision> revisions = StackAppClient.getRevisionsById(2899207, RevisionRequestConfigConfiguration.start().withFromDate(1000L));
 //    System.err.println(revisions);
 
 //    Revision revision = StackAppClient.getRevisionsByIdWithGuid(2899207, "a47eed38-7c34-4d15-9d8a-dfc438d76ac4");
 //    System.err.println(revision);
 
-//    Revision revision = StackAppClient.getRevisionsByIdWithGuid(2899207, "a47eed38-7c34-4d15-9d8a-dfc438d76ac4", RevisionRequestConfig.start().withFromDate(1000L));
+//    Revision revision = StackAppClient.getRevisionsByIdWithGuid(2899207, "a47eed38-7c34-4d15-9d8a-dfc438d76ac4", RevisionRequestConfigConfiguration.start().withFromDate(1000L));
 //    System.err.println(revision);
 
 //    Stats stats = StackAppClient.getStats();
@@ -131,25 +125,25 @@ public class Test
 //    List<Tag> tags = StackAppClient.getTags();
 //    System.err.println(tags);
 
-//    List<Tag> tags = StackAppClient.getTags(TagsRequest.start().withPage(2));
+//    List<Tag> tags = StackAppClient.getTags(TagsRequestConfiguration.start().withPage(2));
 //    System.err.println(tags);
 
 //    List<User> users = StackAppClient.getUsers();
 //    System.err.println(users);
 
-//    List<User> users = StackAppClient.getUsers(UsersRequest.start().withFilter("carson"));
+//    List<User> users = StackAppClient.getUsers(UsersRequestConfiguration.start().withFilter("carson"));
 //    System.err.println(users);
 
 //    User user = StackAppClient.getUser(25343);
 //    System.err.println(user);
 
-//    User user = StackAppClient.getUser(25343, UsersByIdRequest.start().withPage(1));
+//    User user = StackAppClient.getUser(25343, UsersByIdRequestConfiguration.start().withPage(1));
 //    System.err.println(user);
 
 //    List<Answer> answers = StackAppClient.getAnswersForUser(25343);
 //    System.err.println(answers);
 
-//    List<Answer> answers = StackAppClient.getAnswersForUser(25343, AnswersForUserRequest.start().withPage(1));
+//    List<Answer> answers = StackAppClient.getAnswersForUser(25343, AnswersForUserRequestConfiguration.start().withPage(1));
 //    System.err.println(answers);
 
 //    List<Badge> badges = StackAppClient.getBadgesForUser(25343);
@@ -158,49 +152,49 @@ public class Test
 //    List<Comment> comments = StackAppClient.getCommentsForUser(25343);
 //    System.err.println(comments);
 
-//    List<Comment> comments = StackAppClient.getCommentsForUser(25343, UsersByIdRequest.start().withPage(1));
+//    List<Comment> comments = StackAppClient.getCommentsForUser(25343, UsersByIdRequestConfiguration.start().withPage(1));
 //    System.err.println(comments);
 
 //    List<Comment> comments = StackAppClient.getCommentsForUserThatMentionUser(23354, 22656);
 //    System.err.println(comments);
 
-//    List<Comment> comments = StackAppClient.getCommentsForUserThatMentionUser(23354, 22656, UsersByIdRequest.start().withPage(1));
+//    List<Comment> comments = StackAppClient.getCommentsForUserThatMentionUser(23354, 22656, UsersByIdRequestConfiguration.start().withPage(1));
 //    System.err.println(comments);
 
 //    List<Question> favorites = StackAppClient.getFavoritesForUser(25343);
 //    System.err.println(favorites);
 
-//    List<Question> favorites = StackAppClient.getFavoritesForUser(25343, AnswersForUserRequest.start().withPage(1));
+//    List<Question> favorites = StackAppClient.getFavoritesForUser(25343, AnswersForUserRequestConfiguration.start().withPage(1));
 //    System.err.println(favorites);
 
 //    List<Comment> mentions = StackAppClient.getMentionsForUser(25343);
 //    System.err.println(mentions);
 
-//    List<Comment> mentions = StackAppClient.getMentionsForUser(25343, AnswersForUserRequest.start().withPage(1));
+//    List<Comment> mentions = StackAppClient.getMentionsForUser(25343, AnswersForUserRequestConfiguration.start().withPage(1));
 //    System.err.println(mentions);
 
 //    List<Question> questions = StackAppClient.getQuestionsForUser(25343);
 //    System.err.println(questions);
 
-//    List<Question> questions = StackAppClient.getQuestionsForUser(25343, AnswersForUserRequest.start().withPage(1));
+//    List<Question> questions = StackAppClient.getQuestionsForUser(25343, AnswersForUserRequestConfiguration.start().withPage(1));
 //    System.err.println(questions);
 
 //    List<RepChange> repChanges = StackAppClient.getReputationForUser(22656);
 //    System.err.println(repChanges);
 
-//    List<RepChange> repChanges = StackAppClient.getReputationForUser(22656, ReputationForUserRequest.start().withPage(1));
+//    List<RepChange> repChanges = StackAppClient.getReputationForUser(22656, ReputationForUserRequestConfiguration.start().withPage(1));
 //    System.err.println(repChanges);
 
 //    List<Tag> tags = StackAppClient.getTagsForUser(25343);
 //    System.err.println(tags);
 
-//    List<Tag> tags = StackAppClient.getTagsForUser(25343, UsersRequest.start().withPage(1));
+//    List<Tag> tags = StackAppClient.getTagsForUser(25343, UsersRequestConfiguration.start().withPage(1));
 //    System.err.println(tags);
 
 //    List<UserTimeline> userTimelines = StackAppClient.getTimelineForUser(25343);
 //    System.err.println(userTimelines);
 
-//    List<UserTimeline> userTimelines = StackAppClient.getTimelineForUser(25343, UsersByIdRequest.start().withPage(1));
+//    List<UserTimeline> userTimelines = StackAppClient.getTimelineForUser(25343, UsersByIdRequestConfiguration.start().withPage(1));
 //    System.err.println(userTimelines);
   }
 }

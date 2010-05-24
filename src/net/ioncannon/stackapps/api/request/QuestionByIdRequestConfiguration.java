@@ -22,36 +22,38 @@
 
 package net.ioncannon.stackapps.api.request;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
-
 /**
  */
-public class QuestionByIdRequest extends QuestionBaseRequest<QuestionByIdRequest>
+public class QuestionByIdRequestConfiguration extends QuestionBaseRequestConfiguration<QuestionByIdRequestConfiguration>
 {
-  public static QuestionByIdRequest start()
+  public static QuestionByIdRequestConfiguration start()
   {
-    return new QuestionByIdRequest();
+    return new QuestionByIdRequestConfiguration();
   }
 
-/**
-body (optional)
-
-    * When "true", a post's body will be included in the response. Default is "false".
-    * boolean
-    */
-  public QuestionByIdRequest withBody(Boolean body)
+  /**
+   * body (optional)
+   * <p/>
+   * When "true", a post's body will be included in the response. Default is "false".
+   *
+   * @param body To include the body or not.
+   * @return The current configuration.
+   */
+  public QuestionByIdRequestConfiguration withBody(Boolean body)
   {
     stackAppRequest.addQueryPart("body", body);
     return this;
   }
 
-/**
-comments (optional)
-
-    * When "true", any comments on a post will be included in the response. Default is "false".
-    * boolean
-    */
-  public QuestionByIdRequest withComments(Boolean comments)
+  /**
+   * comments (optional)
+   * <p/>
+   * When "true", any comments on a post will be included in the response. Default is "false".
+   *
+   * @param comments To include the comments or not.
+   * @return The current configuration.
+   */
+  public QuestionByIdRequestConfiguration withComments(Boolean comments)
   {
     stackAppRequest.addQueryPart("comments", comments);
     return this;

@@ -22,14 +22,40 @@
 
 package net.ioncannon.stackapps.api.request;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
-
 /**
  */
-public class AnswerCommentsRequest extends AnswerBaseRequest<AnswerCommentsRequest>
+public class RevisionRequestConfigConfiguration extends BaseRequestConfiguration
 {
-  public static AnswerCommentsRequest start()
+  public static RevisionRequestConfigConfiguration start()
   {
-    return new AnswerCommentsRequest();
+    return new RevisionRequestConfigConfiguration();
+  }
+
+  /**
+   * fromDate (optional)
+   * <p/>
+   * start date to list revisions from
+   *
+   * @param fromDate The starting date.
+   * @return The current configuration.
+   */
+  public RevisionRequestConfigConfiguration withFromDate(Long fromDate)
+  {
+    stackAppRequest.addQueryPart("fromdate", fromDate);
+    return this;
+  }
+
+  /**
+   * toDate (optional)
+   * <p/>
+   * date to stop listing revisions at
+   *
+   * @param toDate The ending date.
+   * @return The current configuration.
+   */
+  public RevisionRequestConfigConfiguration withToDate(Long toDate)
+  {
+    stackAppRequest.addQueryPart("todate", toDate);
+    return this;
   }
 }

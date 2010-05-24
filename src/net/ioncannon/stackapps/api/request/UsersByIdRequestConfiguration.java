@@ -22,51 +22,12 @@
 
 package net.ioncannon.stackapps.api.request;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
-
 /**
  */
-public class QuestionRequest extends QuestionBaseRequest<QuestionRequest>
+public class UsersByIdRequestConfiguration extends UsersBaseRequestConfiguration<UsersByIdRequestConfiguration>
 {
-  public static QuestionRequest start()
+  public static UsersByIdRequestConfiguration start()
   {
-    return new QuestionRequest();
-  }
-
-
-/**
-tagged (optional)
-
-    * List of tags questions must have
-    * string
-    */
-  public QuestionRequest withTagged(String tagged)
-  {
-    stackAppRequest.addQueryPart("tagged", tagged);
-    return this;
-  }
-
-/**
-body (optional)
-
-    * When "true", a post's body will be included in the response. Default is "false".
-    * boolean
-    */
-  public QuestionRequest withBody(Boolean body)
-  {
-    stackAppRequest.addQueryPart("body", body);
-    return this;
-  }
-
-/**
-comments (optional)
-
-    * When "true", any comments on a post will be included in the response. Default is "false".
-    * boolean
-    */
-  public QuestionRequest withComments(Boolean comments)
-  {
-    stackAppRequest.addQueryPart("comments", comments);
-    return this;
+    return new UsersByIdRequestConfiguration();
   }
 }

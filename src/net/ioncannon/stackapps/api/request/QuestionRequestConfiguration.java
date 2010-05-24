@@ -22,36 +22,53 @@
 
 package net.ioncannon.stackapps.api.request;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
-
 /**
  */
-public class AnswerRequest extends AnswerBaseRequest<AnswerRequest>
+public class QuestionRequestConfiguration extends QuestionBaseRequestConfiguration<QuestionRequestConfiguration>
 {
-  public static AnswerRequest start()
+  public static QuestionRequestConfiguration start()
   {
-    return new AnswerRequest();
+    return new QuestionRequestConfiguration();
+  }
+
+
+  /**
+   * tagged (optional)
+   * <p/>
+   * List of tags questions must have
+   *
+   * @param tagged The tags to search for.
+   * @return The current configuration.
+   */
+  public QuestionRequestConfiguration withTagged(String tagged)
+  {
+    stackAppRequest.addQueryPart("tagged", tagged);
+    return this;
   }
 
   /**
-body (optional)
-
-    * When "true", a post's body will be included in the response. Default is "false".
-    * boolean
-  */
-  public AnswerRequest withBody(Boolean body)
+   * body (optional)
+   * <p/>
+   * When "true", a post's body will be included in the response. Default is "false".
+   *
+   * @param body To include the body or not.
+   * @return The current configuration.
+   */
+  public QuestionRequestConfiguration withBody(Boolean body)
   {
     stackAppRequest.addQueryPart("body", body);
     return this;
   }
 
-   /**
-comments (optional)
-
-    * When "true", any comments on a post will be included in the response. Default is "false".
-    * boolean
-    */
-  public AnswerRequest withComments(Boolean comments)
+  /**
+   * comments (optional)
+   * <p/>
+   * When "true", any comments on a post will be included in the response. Default is "false".
+   *
+   * @param comments To include the comments or not.
+   * @return The current configuration.
+   */
+  public QuestionRequestConfiguration withComments(Boolean comments)
   {
     stackAppRequest.addQueryPart("comments", comments);
     return this;
