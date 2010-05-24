@@ -32,4 +32,20 @@
         </jar>
     </target>
 
+    <target name="javadoc" description="Create the javadocs for the library.">
+        <mkdir dir="${deploy.dir}/docs/api" />
+        <javadoc packagenames="net.ioncannon.stackapps.api.*"
+                 sourcepath="../src"
+                 defaultexcludes="yes"
+                 destdir="${deploy.dir}/docs/api"
+                 author="true"
+                 version="true"
+                 use="true"
+                 windowtitle="Stack Apps Java API Wrapper">
+            <group title="Requests" packages="net.ioncannon.stackapps.api.request.*"/>
+            <group title="Response" packages="net.ioncannon.stackapps.api.response.*"/>
+            <group title="Client" packages="net.ioncannon.stackapps.api.client.*"/>
+        </javadoc>
+    </target>
+
 </project>

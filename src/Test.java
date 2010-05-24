@@ -24,7 +24,6 @@ import net.ioncannon.stackapps.api.response.Error;
 import net.ioncannon.stackapps.api.client.StackAppClient;
 
 /**
- * todo need to make javadoc task in ant build
  */
 public class Test
 {
