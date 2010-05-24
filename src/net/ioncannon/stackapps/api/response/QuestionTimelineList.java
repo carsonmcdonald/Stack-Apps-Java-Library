@@ -20,82 +20,42 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 
 /**
  */
-
-@XmlRootElement
-public class CommentList extends StackAppResponse 
+public class QuestionTimelineList extends StackAppResponse
 {
-  private long total;
-  private long page;
-  private long pagesize;
-  private Comment comments[];
+  private PostTimeline timelines[];
 
-  public CommentList()
+  public QuestionTimelineList()
   {
   }
 
-  public CommentList(long total, long page, long pagesize, Comment[] comments)
+  public QuestionTimelineList(long currentRateLimit, long maxRateLimit, PostTimeline[] timelines)
   {
-    this.total = total;
-    this.page = page;
-    this.pagesize = pagesize;
-    this.comments = comments;
+    super(currentRateLimit, maxRateLimit);
+    this.timelines = timelines;
   }
 
-  public long getTotal()
+  // post_timelines
+  public PostTimeline[] getTimelines()
   {
-    return total;
+    return timelines;
   }
 
-  public void setTotal(long total)
+  public void setTimelines(PostTimeline[] timelines)
   {
-    this.total = total;
-  }
-
-  public long getPage()
-  {
-    return page;
-  }
-
-  public void setPage(long page)
-  {
-    this.page = page;
-  }
-
-  public long getPagesize()
-  {
-    return pagesize;
-  }
-
-  public void setPagesize(long pagesize)
-  {
-    this.pagesize = pagesize;
-  }
-
-  public Comment[] getComments()
-  {
-    return comments;
-  }
-
-  public void setComments(Comment[] comments)
-  {
-    this.comments = comments;
+    this.timelines = timelines;
   }
 
   @Override
   public String toString()
   {
-    return "CommentList{" +
-        "total=" + total +
-        ", page=" + page +
-        ", pagesize=" + pagesize +
-        ", comments=" + (comments == null ? null : Arrays.asList(comments)) +
+    return "QuestionTimelineList{" +
+        "timelines=" + (timelines == null ? null : Arrays.asList(timelines)) +
         '}';
   }
 }

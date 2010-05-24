@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
@@ -30,36 +30,75 @@ import java.util.Arrays;
  */
 
 @XmlRootElement
-public class UserTimelineList extends StackAppResponse
+public class RepChangeList extends StackAppResponse
 {
-  private UserTimeline userTimelines[];
+  private long total;
+  private long page;
+  private long pagesize;
+  private RepChange repChanges[];
 
-  public UserTimelineList()
+  public RepChangeList()
   {
   }
 
-  public UserTimelineList(long currentRateLimit, long maxRateLimit, UserTimeline[] userTimelines)
+  public RepChangeList(long currentRateLimit, long maxRateLimit, long total, long page, long pagesize, RepChange[] repChanges)
   {
     super(currentRateLimit, maxRateLimit);
-    this.userTimelines = userTimelines;
+    this.total = total;
+    this.page = page;
+    this.pagesize = pagesize;
+    this.repChanges = repChanges;
   }
 
-  @XmlElement(name="user_timelines")
-  public UserTimeline[] getTimelines()
+  public long getTotal()
   {
-    return userTimelines;
+    return total;
   }
 
-  public void setTimelines(UserTimeline[] userTimelines)
+  public void setTotal(long total)
   {
-    this.userTimelines = userTimelines;
+    this.total = total;
+  }
+
+  public long getPage()
+  {
+    return page;
+  }
+
+  public void setPage(long page)
+  {
+    this.page = page;
+  }
+
+  public long getPagesize()
+  {
+    return pagesize;
+  }
+
+  public void setPagesize(long pagesize)
+  {
+    this.pagesize = pagesize;
+  }
+
+  @XmlElement(name="rep_changes")
+  public RepChange[] getRepChanges()
+  {
+    return repChanges;
+  }
+
+  public void setRepChanges(RepChange[] repChanges)
+  {
+    this.repChanges = repChanges;
   }
 
   @Override
   public String toString()
   {
-    return "UserTimelineList{" +
-        "userTimelines=" + (userTimelines == null ? null : Arrays.asList(userTimelines)) +
+    return "RepChangeList{" +
+        "total=" + total +
+        ", page=" + page +
+        ", pagesize=" + pagesize +
+        ", repChanges=" + (repChanges == null ? null : Arrays.asList(repChanges)) +
         '}';
   }
 }

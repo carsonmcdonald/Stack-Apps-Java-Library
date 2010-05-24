@@ -20,8 +20,7 @@
  * THE SOFTWARE.
  */
 
-import net.ioncannon.stackapps.api.model.*;
-import net.ioncannon.stackapps.api.request.*;
+import net.ioncannon.stackapps.api.response.*;
 import net.ioncannon.stackapps.api.client.StackAppClient;
 
 import java.util.List;

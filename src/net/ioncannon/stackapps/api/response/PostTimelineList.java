@@ -20,86 +20,46 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 
 /**
- *
- * http://api.stackoverflow.com/0.8/help/method?method=users
- * http://api.stackoverflow.com/0.8/help/method?method=users/{id}
- *
  */
 
 @XmlRootElement
-public class UserList extends StackAppResponse
+public class PostTimelineList extends StackAppResponse
 {
-  private long total;
-  private long page;
-  private long pagesize;
-  private User users[];
+  private PostTimeline timelines[];
 
-  public UserList()
+  public PostTimelineList()
   {
   }
 
-  public UserList(long total, long page, long pagesize, User[] users)
+  public PostTimelineList(long currentRateLimit, long maxRateLimit, PostTimeline[] timelines)
   {
-    this.total = total;
-    this.page = page;
-    this.pagesize = pagesize;
-    this.users = users;
+    super(currentRateLimit, maxRateLimit);
+    this.timelines = timelines;
   }
 
-  public User[] getUsers()
+  @XmlElement(name="post_timelines")
+  public PostTimeline[] getTimelines()
   {
-    return users;
+    return timelines;
   }
 
-  public void setUsers(User[] users)
+  public void setTimelines(PostTimeline[] timelines)
   {
-    this.users = users;
-  }
-
-  public long getTotal()
-  {
-    return total;
-  }
-
-  public void setTotal(long total)
-  {
-    this.total = total;
-  }
-
-  public long getPage()
-  {
-    return page;
-  }
-
-  public void setPage(long page)
-  {
-    this.page = page;
-  }
-
-  public long getPagesize()
-  {
-    return pagesize;
-  }
-
-  public void setPagesize(long pagesize)
-  {
-    this.pagesize = pagesize;
+    this.timelines = timelines;
   }
 
   @Override
   public String toString()
   {
-    return "UserList{" +
-        "total=" + total +
-        ", page=" + page +
-        ", pagesize=" + pagesize +
-        ", users=" + (users == null ? null : Arrays.asList(users)) +
+    return "QuestionTimelineList{" +
+        "timelines=" + (timelines == null ? null : Arrays.asList(timelines)) +
         '}';
   }
 }

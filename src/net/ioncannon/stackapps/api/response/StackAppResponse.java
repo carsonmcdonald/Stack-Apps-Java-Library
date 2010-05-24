@@ -20,64 +20,55 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
 /**
+ *
+ * Header values:
+ *   X-RateLimit-Current
+ *   X-RateLimit-Max
  */
-public class Tag
+public class StackAppResponse
 {
-  private String name;
-  private long count;
-  private long userId;
+  private long currentRateLimit;
+  private long maxRateLimit;
 
-  public Tag()
+  public StackAppResponse()
   {
   }
 
-  public Tag(String name, long count, long userId)
+  public StackAppResponse(long currentRateLimit, long maxRateLimit)
   {
-    this.name = name;
-    this.count = count;
-    this.userId = userId;
+    this.currentRateLimit = currentRateLimit;
+    this.maxRateLimit = maxRateLimit;
   }
 
-  public String getName()
+  public long getCurrentRateLimit()
   {
-    return name;
+    return currentRateLimit;
   }
 
-  public void setName(String name)
+  public void setCurrentRateLimit(long currentRateLimit)
   {
-    this.name = name;
+    this.currentRateLimit = currentRateLimit;
   }
 
-  public long getCount()
+  public long getMaxRateLimit()
   {
-    return count;
+    return maxRateLimit;
   }
 
-  public void setCount(long count)
+  public void setMaxRateLimit(long maxRateLimit)
   {
-    this.count = count;
-  }
-
-  public long getUserId()
-  {
-    return userId;
-  }
-
-  public void setUserId(long userId)
-  {
-    this.userId = userId;
+    this.maxRateLimit = maxRateLimit;
   }
 
   @Override
   public String toString()
   {
-    return "Tag{" +
-        "name='" + name + '\'' +
-        ", count=" + count +
-        ", userId=" + userId +
+    return "StackAppResponse{" +
+        "currentRateLimit=" + currentRateLimit +
+        ", maxRateLimit=" + maxRateLimit +
         '}';
   }
 }

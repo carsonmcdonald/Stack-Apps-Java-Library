@@ -20,36 +20,32 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 
 /**
- *
- * http://api.stackoverflow.com/0.8/help/method?method=questions
- * http://api.stackoverflow.com/0.8/help/method?method=questions/{id}
- *
  */
 
 @XmlRootElement
-public class QuestionList extends StackAppResponse
+public class CommentList extends StackAppResponse 
 {
   private long total;
   private long page;
   private long pagesize;
-  private Question questions[];
+  private Comment comments[];
 
-  public QuestionList()
+  public CommentList()
   {
   }
 
-  public QuestionList(long total, long page, long pagesize, Question[] questions)
+  public CommentList(long total, long page, long pagesize, Comment[] comments)
   {
     this.total = total;
     this.page = page;
     this.pagesize = pagesize;
-    this.questions = questions;
+    this.comments = comments;
   }
 
   public long getTotal()
@@ -82,24 +78,24 @@ public class QuestionList extends StackAppResponse
     this.pagesize = pagesize;
   }
 
-  public Question[] getQuestions()
+  public Comment[] getComments()
   {
-    return questions;
+    return comments;
   }
 
-  public void setQuestions(Question[] questions)
+  public void setComments(Comment[] comments)
   {
-    this.questions = questions;
+    this.comments = comments;
   }
 
   @Override
   public String toString()
   {
-    return "QuestionList{" +
+    return "CommentList{" +
         "total=" + total +
         ", page=" + page +
         ", pagesize=" + pagesize +
-        ", questions=" + (questions == null ? null : Arrays.asList(questions)) +
+        ", comments=" + (comments == null ? null : Arrays.asList(comments)) +
         '}';
   }
 }

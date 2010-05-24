@@ -20,84 +20,47 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
 import java.util.Arrays;
 
 /**
  *
- * http://api.stackoverflow.com/[version]/help/method?method=tags
+ * http://api.stackoverflow.com/[version]/help/method?method=stats
  */
 
 @XmlRootElement
-public class TagList extends StackAppResponse
+public class StatsList extends StackAppResponse
 {
-  private long total;
-  private long page;
-  private long pagesize;
-  private Tag tags[];
+  private Stats stats[];
 
-  public TagList()
+  public StatsList()
   {
   }
 
-  public TagList(long total, long page, long pagesize, Tag[] tags)
+  public StatsList(Stats[] stats)
   {
-    this.total = total;
-    this.page = page;
-    this.pagesize = pagesize;
-    this.tags = tags;
+    this.stats = stats;
   }
 
-  public long getTotal()
+  @XmlElement(name="statistics")
+  public Stats[] getStats()
   {
-    return total;
+    return stats;
   }
 
-  public void setTotal(long total)
+  public void setStats(Stats[] stats)
   {
-    this.total = total;
-  }
-
-  public long getPage()
-  {
-    return page;
-  }
-
-  public void setPage(long page)
-  {
-    this.page = page;
-  }
-
-  public long getPagesize()
-  {
-    return pagesize;
-  }
-
-  public void setPagesize(long pagesize)
-  {
-    this.pagesize = pagesize;
-  }
-
-  public Tag[] getTags()
-  {
-    return tags;
-  }
-
-  public void setTags(Tag[] tags)
-  {
-    this.tags = tags;
+    this.stats = stats;
   }
 
   @Override
   public String toString()
   {
-    return "TagList{" +
-        "total=" + total +
-        ", page=" + page +
-        ", pagesize=" + pagesize +
-        ", tags=" + (tags == null ? null : Arrays.asList(tags)) +
+    return "net.ioncannon.stackapps.api.response.StatsList{" +
+        "stats=" + (stats == null ? null : Arrays.asList(stats)) +
         '}';
   }
 }

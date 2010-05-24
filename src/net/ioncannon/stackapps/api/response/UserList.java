@@ -20,47 +20,86 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlElement;
 import java.util.Arrays;
 
 /**
  *
- * http://api.stackoverflow.com/[version]/help/method?method=stats
+ * http://api.stackoverflow.com/0.8/help/method?method=users
+ * http://api.stackoverflow.com/0.8/help/method?method=users/{id}
+ *
  */
 
 @XmlRootElement
-public class StatsList extends StackAppResponse
+public class UserList extends StackAppResponse
 {
-  private Stats stats[];
+  private long total;
+  private long page;
+  private long pagesize;
+  private User users[];
 
-  public StatsList()
+  public UserList()
   {
   }
 
-  public StatsList(Stats[] stats)
+  public UserList(long total, long page, long pagesize, User[] users)
   {
-    this.stats = stats;
+    this.total = total;
+    this.page = page;
+    this.pagesize = pagesize;
+    this.users = users;
   }
 
-  @XmlElement(name="statistics")
-  public Stats[] getStats()
+  public User[] getUsers()
   {
-    return stats;
+    return users;
   }
 
-  public void setStats(Stats[] stats)
+  public void setUsers(User[] users)
   {
-    this.stats = stats;
+    this.users = users;
+  }
+
+  public long getTotal()
+  {
+    return total;
+  }
+
+  public void setTotal(long total)
+  {
+    this.total = total;
+  }
+
+  public long getPage()
+  {
+    return page;
+  }
+
+  public void setPage(long page)
+  {
+    this.page = page;
+  }
+
+  public long getPagesize()
+  {
+    return pagesize;
+  }
+
+  public void setPagesize(long pagesize)
+  {
+    this.pagesize = pagesize;
   }
 
   @Override
   public String toString()
   {
-    return "net.ioncannon.stackapps.api.model.StatsList{" +
-        "stats=" + (stats == null ? null : Arrays.asList(stats)) +
+    return "UserList{" +
+        "total=" + total +
+        ", page=" + page +
+        ", pagesize=" + pagesize +
+        ", users=" + (users == null ? null : Arrays.asList(users)) +
         '}';
   }
 }

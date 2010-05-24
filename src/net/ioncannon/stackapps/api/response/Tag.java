@@ -20,46 +20,64 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Arrays;
+package net.ioncannon.stackapps.api.response;
 
 /**
  */
-
-@XmlRootElement
-public class PostTimelineList extends StackAppResponse
+public class Tag
 {
-  private PostTimeline timelines[];
+  private String name;
+  private long count;
+  private long userId;
 
-  public PostTimelineList()
+  public Tag()
   {
   }
 
-  public PostTimelineList(long currentRateLimit, long maxRateLimit, PostTimeline[] timelines)
+  public Tag(String name, long count, long userId)
   {
-    super(currentRateLimit, maxRateLimit);
-    this.timelines = timelines;
+    this.name = name;
+    this.count = count;
+    this.userId = userId;
   }
 
-  @XmlElement(name="post_timelines")
-  public PostTimeline[] getTimelines()
+  public String getName()
   {
-    return timelines;
+    return name;
   }
 
-  public void setTimelines(PostTimeline[] timelines)
+  public void setName(String name)
   {
-    this.timelines = timelines;
+    this.name = name;
+  }
+
+  public long getCount()
+  {
+    return count;
+  }
+
+  public void setCount(long count)
+  {
+    this.count = count;
+  }
+
+  public long getUserId()
+  {
+    return userId;
+  }
+
+  public void setUserId(long userId)
+  {
+    this.userId = userId;
   }
 
   @Override
   public String toString()
   {
-    return "QuestionTimelineList{" +
-        "timelines=" + (timelines == null ? null : Arrays.asList(timelines)) +
+    return "Tag{" +
+        "name='" + name + '\'' +
+        ", count=" + count +
+        ", userId=" + userId +
         '}';
   }
 }

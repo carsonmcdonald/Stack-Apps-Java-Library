@@ -20,42 +20,84 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 
 /**
  */
-public class QuestionTimelineList extends StackAppResponse
-{
-  private PostTimeline timelines[];
 
-  public QuestionTimelineList()
+@XmlRootElement
+public class AnswerList extends StackAppResponse
+{
+  private long total;
+  private long page;
+  private long pagesize;
+  private Answer answers[];
+
+  public AnswerList()
   {
+    super();
   }
 
-  public QuestionTimelineList(long currentRateLimit, long maxRateLimit, PostTimeline[] timelines)
+  public AnswerList(long currentRateLimit, long maxRateLimit, long total, long page, long pagesize, Answer[] answers)
   {
     super(currentRateLimit, maxRateLimit);
-    this.timelines = timelines;
+    this.total = total;
+    this.page = page;
+    this.pagesize = pagesize;
+    this.answers = answers;
   }
 
-  // post_timelines
-  public PostTimeline[] getTimelines()
+  public long getTotal()
   {
-    return timelines;
+    return total;
   }
 
-  public void setTimelines(PostTimeline[] timelines)
+  public void setTotal(long total)
   {
-    this.timelines = timelines;
+    this.total = total;
+  }
+
+  public long getPage()
+  {
+    return page;
+  }
+
+  public void setPage(long page)
+  {
+    this.page = page;
+  }
+
+  public long getPagesize()
+  {
+    return pagesize;
+  }
+
+  public void setPagesize(long pagesize)
+  {
+    this.pagesize = pagesize;
+  }
+
+  public Answer[] getAnswers()
+  {
+    return answers;
+  }
+
+  public void setAnswers(Answer[] answers)
+  {
+    this.answers = answers;
   }
 
   @Override
   public String toString()
   {
-    return "QuestionTimelineList{" +
-        "timelines=" + (timelines == null ? null : Arrays.asList(timelines)) +
+    return "AnswerList(" + getMaxRateLimit() + "/" + getCurrentRateLimit() + "){" +
+        "total=" + total +
+        ", page=" + page +
+        ", pagesize=" + pagesize +
+        ", answers=" + (answers == null ? null : Arrays.asList(answers)) +
         '}';
   }
 }

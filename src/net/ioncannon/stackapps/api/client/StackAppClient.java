@@ -22,7 +22,7 @@
 
 package net.ioncannon.stackapps.api.client;
 
-import net.ioncannon.stackapps.api.model.*;
+import net.ioncannon.stackapps.api.response.*;
 import net.ioncannon.stackapps.api.request.*;
 import com.sun.jersey.api.client.filter.GZIPContentEncodingFilter;
 import com.sun.jersey.api.client.WebResource;

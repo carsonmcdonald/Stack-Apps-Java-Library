@@ -20,27 +20,18 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.Arrays;
 
 /**
  */
-public class Question
+public class Answer
 {
-  private String tags[];
-  private long answerCount;
-  private Answer answers[];
-  private long acceptedAnswerId;
-  private long favoriteCount;
-  private long bountyClosesDate;
-  private long bountyAmount;
-  private long closedDate;
-  private String closedReason;
-  private String questionTimelineUrl;
-  private String questionCommentsUrl;
-  private String questionAnswersUrl;
+  private long answerId;
+  private boolean accepted;
+  private String answerCommentsUrl;
   private long questionId;
   private long lockedDate;
   private User owner;
@@ -51,29 +42,20 @@ public class Question
   private long downVoteCount;
   private long viewCount;
   private long score;
-  private boolean communityOwned;
+  private boolean communityOwner;
   private String title;
   private String body;
   private Comment comments[];
 
-  public Question()
+  public Answer()
   {
   }
 
-  public Question(String tags[], long answerCount, Answer[] answers, long acceptedAnswerId, long favoriteCount, long bountyClosesDate, long bountyAmount, long closedDate, String closedReason, String questionTimelineUrl, String questionCommentsUrl, String questionAnswersUrl, long questionId, long lockedDate, User owner, long creationDate, long lastEditDate, long lastActivityDate, long upVoteCount, long downVoteCount, long viewCount, long score, boolean communityOwned, String title, String body, Comment[] comments)
+  public Answer(long answerId, boolean accepted, String answerCommentsUrl, long questionId, long lockedDate, User owner, long creationDate, long lastEditDate, long lastActivityDate, long upVoteCount, long downVoteCount, long viewCount, long score, boolean communityOwner, String title, String body, Comment[] comments)
   {
-    this.tags = tags;
-    this.answerCount = answerCount;
-    this.answers = answers;
-    this.acceptedAnswerId = acceptedAnswerId;
-    this.favoriteCount = favoriteCount;
-    this.bountyClosesDate = bountyClosesDate;
-    this.bountyAmount = bountyAmount;
-    this.closedDate = closedDate;
-    this.closedReason = closedReason;
-    this.questionTimelineUrl = questionTimelineUrl;
-    this.questionCommentsUrl = questionCommentsUrl;
-    this.questionAnswersUrl = questionAnswersUrl;
+    this.answerId = answerId;
+    this.accepted = accepted;
+    this.answerCommentsUrl = answerCommentsUrl;
     this.questionId = questionId;
     this.lockedDate = lockedDate;
     this.owner = owner;
@@ -84,140 +66,41 @@ public class Question
     this.downVoteCount = downVoteCount;
     this.viewCount = viewCount;
     this.score = score;
-    this.communityOwned = communityOwned;
+    this.communityOwner = communityOwner;
     this.title = title;
     this.body = body;
     this.comments = comments;
   }
 
-  public String[] getTags()
+  @XmlElement(name="answer_id")
+  public long getAnswerId()
   {
-    return tags;
+    return answerId;
   }
 
-  public void setTags(String tags[])
+  public void setAnswerId(long answerId)
   {
-    this.tags = tags;
+    this.answerId = answerId;
   }
 
-  @XmlElement(name="answer_count")
-  public long getAnswerCount()
+  public boolean isAccepted()
   {
-    return answerCount;
+    return accepted;
   }
 
-  public void setAnswerCount(long answerCount)
+  public void setAccepted(boolean accepted)
   {
-    this.answerCount = answerCount;
+    this.accepted = accepted;
   }
 
-  public Answer[] getAnswers()
+  public String getAnswerCommentsUrl()
   {
-    return answers;
+    return answerCommentsUrl;
   }
 
-  public void setAnswers(Answer[] answers)
+  public void setAnswerCommentsUrl(String answerCommentsUrl)
   {
-    this.answers = answers;
-  }
-
-  @XmlElement(name="accepted_answer_id")
-  public long getAcceptedAnswerId()
-  {
-    return acceptedAnswerId;
-  }
-
-  public void setAcceptedAnswerId(long acceptedAnswerId)
-  {
-    this.acceptedAnswerId = acceptedAnswerId;
-  }
-
-  @XmlElement(name="favorite_count")
-  public long getFavoriteCount()
-  {
-    return favoriteCount;
-  }
-
-  public void setFavoriteCount(long favoriteCount)
-  {
-    this.favoriteCount = favoriteCount;
-  }
-
-  @XmlElement(name="bounty_close_date")
-  public long getBountyClosesDate()
-  {
-    return bountyClosesDate;
-  }
-
-  public void setBountyClosesDate(long bountyClosesDate)
-  {
-    this.bountyClosesDate = bountyClosesDate;
-  }
-
-  @XmlElement(name="bounty_amount")
-  public long getBountyAmount()
-  {
-    return bountyAmount;
-  }
-
-  public void setBountyAmount(long bountyAmount)
-  {
-    this.bountyAmount = bountyAmount;
-  }
-
-  @XmlElement(name="closed_date")
-  public long getClosedDate()
-  {
-    return closedDate;
-  }
-
-  public void setClosedDate(long closedDate)
-  {
-    this.closedDate = closedDate;
-  }
-
-  @XmlElement(name="closed_reason")
-  public String getClosedReason()
-  {
-    return closedReason;
-  }
-
-  public void setClosedReason(String closedReason)
-  {
-    this.closedReason = closedReason;
-  }
-
-  @XmlElement(name="question_timeline_url")
-  public String getQuestionTimelineUrl()
-  {
-    return questionTimelineUrl;
-  }
-
-  public void setQuestionTimelineUrl(String questionTimelineUrl)
-  {
-    this.questionTimelineUrl = questionTimelineUrl;
-  }
-
-  @XmlElement(name="question_comments_url")
-  public String getQuestionCommentsUrl()
-  {
-    return questionCommentsUrl;
-  }
-
-  public void setQuestionCommentsUrl(String questionCommentsUrl)
-  {
-    this.questionCommentsUrl = questionCommentsUrl;
-  }
-
-  @XmlElement(name="question_answers_url")
-  public String getQuestionAnswersUrl()
-  {
-    return questionAnswersUrl;
-  }
-
-  public void setQuestionAnswersUrl(String questionAnswersUrl)
-  {
-    this.questionAnswersUrl = questionAnswersUrl;
+    this.answerCommentsUrl = answerCommentsUrl;
   }
 
   @XmlElement(name="question_id")
@@ -328,15 +211,15 @@ public class Question
     this.score = score;
   }
 
-  @XmlElement(name="community_owned")
-  public boolean isCommunityOwned()
+  @XmlElement(name="community_owner")
+  public boolean isCommunityOwner()
   {
-    return communityOwned;
+    return communityOwner;
   }
 
-  public void setCommunityOwned(boolean communityOwned)
+  public void setCommunityOwner(boolean communityOwner)
   {
-    this.communityOwned = communityOwned;
+    this.communityOwner = communityOwner;
   }
 
   public String getTitle()
@@ -372,19 +255,10 @@ public class Question
   @Override
   public String toString()
   {
-    return "Question{" +
-        "tags=" + (tags == null ? null : Arrays.asList(tags)) +
-        ", answerCount=" + answerCount +
-        ", answers=" + (answers == null ? null : Arrays.asList(answers)) +
-        ", acceptedAnswerId=" + acceptedAnswerId +
-        ", favoriteCount=" + favoriteCount +
-        ", bountyClosesDate=" + bountyClosesDate +
-        ", bountyAmount=" + bountyAmount +
-        ", closedDate=" + closedDate +
-        ", closedReason='" + closedReason + '\'' +
-        ", questionTimelineUrl='" + questionTimelineUrl + '\'' +
-        ", questionCommentsUrl='" + questionCommentsUrl + '\'' +
-        ", questionAnswersUrl='" + questionAnswersUrl + '\'' +
+    return "Answer{" +
+        "answerId=" + answerId +
+        ", accepted=" + accepted +
+        ", answerCommentsUrl='" + answerCommentsUrl + '\'' +
         ", questionId=" + questionId +
         ", lockedDate=" + lockedDate +
         ", owner=" + owner +
@@ -395,7 +269,7 @@ public class Question
         ", downVoteCount=" + downVoteCount +
         ", viewCount=" + viewCount +
         ", score=" + score +
-        ", communityOwned=" + communityOwned +
+        ", communityOwner=" + communityOwner +
         ", title='" + title + '\'' +
         ", body='" + body + '\'' +
         ", comments=" + (comments == null ? null : Arrays.asList(comments)) +

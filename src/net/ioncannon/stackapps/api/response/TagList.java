@@ -20,34 +20,34 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlElement;
 import java.util.Arrays;
 
 /**
+ *
+ * http://api.stackoverflow.com/[version]/help/method?method=tags
  */
 
 @XmlRootElement
-public class RepChangeList extends StackAppResponse
+public class TagList extends StackAppResponse
 {
   private long total;
   private long page;
   private long pagesize;
-  private RepChange repChanges[];
+  private Tag tags[];
 
-  public RepChangeList()
+  public TagList()
   {
   }
 
-  public RepChangeList(long currentRateLimit, long maxRateLimit, long total, long page, long pagesize, RepChange[] repChanges)
+  public TagList(long total, long page, long pagesize, Tag[] tags)
   {
-    super(currentRateLimit, maxRateLimit);
     this.total = total;
     this.page = page;
     this.pagesize = pagesize;
-    this.repChanges = repChanges;
+    this.tags = tags;
   }
 
   public long getTotal()
@@ -80,25 +80,24 @@ public class RepChangeList extends StackAppResponse
     this.pagesize = pagesize;
   }
 
-  @XmlElement(name="rep_changes")
-  public RepChange[] getRepChanges()
+  public Tag[] getTags()
   {
-    return repChanges;
+    return tags;
   }
 
-  public void setRepChanges(RepChange[] repChanges)
+  public void setTags(Tag[] tags)
   {
-    this.repChanges = repChanges;
+    this.tags = tags;
   }
 
   @Override
   public String toString()
   {
-    return "RepChangeList{" +
+    return "TagList{" +
         "total=" + total +
         ", page=" + page +
         ", pagesize=" + pagesize +
-        ", repChanges=" + (repChanges == null ? null : Arrays.asList(repChanges)) +
+        ", tags=" + (tags == null ? null : Arrays.asList(tags)) +
         '}';
   }
 }

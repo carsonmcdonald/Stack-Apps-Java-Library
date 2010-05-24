@@ -20,84 +20,46 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.response;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
 import java.util.Arrays;
 
 /**
  */
 
 @XmlRootElement
-public class AnswerList extends StackAppResponse
+public class UserTimelineList extends StackAppResponse
 {
-  private long total;
-  private long page;
-  private long pagesize;
-  private Answer answers[];
+  private UserTimeline userTimelines[];
 
-  public AnswerList()
+  public UserTimelineList()
   {
-    super();
   }
 
-  public AnswerList(long currentRateLimit, long maxRateLimit, long total, long page, long pagesize, Answer[] answers)
+  public UserTimelineList(long currentRateLimit, long maxRateLimit, UserTimeline[] userTimelines)
   {
     super(currentRateLimit, maxRateLimit);
-    this.total = total;
-    this.page = page;
-    this.pagesize = pagesize;
-    this.answers = answers;
+    this.userTimelines = userTimelines;
   }
 
-  public long getTotal()
+  @XmlElement(name="user_timelines")
+  public UserTimeline[] getTimelines()
   {
-    return total;
+    return userTimelines;
   }
 
-  public void setTotal(long total)
+  public void setTimelines(UserTimeline[] userTimelines)
   {
-    this.total = total;
-  }
-
-  public long getPage()
-  {
-    return page;
-  }
-
-  public void setPage(long page)
-  {
-    this.page = page;
-  }
-
-  public long getPagesize()
-  {
-    return pagesize;
-  }
-
-  public void setPagesize(long pagesize)
-  {
-    this.pagesize = pagesize;
-  }
-
-  public Answer[] getAnswers()
-  {
-    return answers;
-  }
-
-  public void setAnswers(Answer[] answers)
-  {
-    this.answers = answers;
+    this.userTimelines = userTimelines;
   }
 
   @Override
   public String toString()
   {
-    return "AnswerList(" + getMaxRateLimit() + "/" + getCurrentRateLimit() + "){" +
-        "total=" + total +
-        ", page=" + page +
-        ", pagesize=" + pagesize +
-        ", answers=" + (answers == null ? null : Arrays.asList(answers)) +
+    return "UserTimelineList{" +
+        "userTimelines=" + (userTimelines == null ? null : Arrays.asList(userTimelines)) +
         '}';
   }
 }
