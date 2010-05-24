@@ -22,8 +22,6 @@
 
 package net.ioncannon.stackapps.api.request;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
-
 /**
  */
 public class ReputationForUserRequest extends BaseRequest

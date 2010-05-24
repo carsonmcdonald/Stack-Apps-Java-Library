@@ -21,11 +21,16 @@
  */
 
 import net.ioncannon.stackapps.api.response.*;
+import net.ioncannon.stackapps.api.response.Error;
 import net.ioncannon.stackapps.api.client.StackAppClient;
+import net.ioncannon.stackapps.api.request.RevisionRequestConfig;
+import net.ioncannon.stackapps.api.request.UsersByIdRequest;
 
 import java.util.List;
 
 /**
+ * todo need to make javadoc task in ant build
+ * todo need to rename requests to RequestConfig
  */
 public class Test
 {
@@ -66,6 +71,9 @@ public class Test
 //    Comment comment = StackAppClient.getComment(2941458, CommentRequest.start().withPage(1));
 //    System.err.println(comment);
 
+    Error error = StackAppClient.getError(4002);
+    System.err.println(error);
+
 //    List<Question> questions = StackAppClient.getQuestions();
 //    System.err.println(questions);
 
@@ -105,6 +113,18 @@ public class Test
 //    List<Question> questions = StackAppClient.getUnansweredQuestions(QuestionRequest.start().withPage(2));
 //    System.err.println(questions);
 
+//    List<Revision> revisions = StackAppClient.getRevisionsById(2899207);
+//    System.err.println(revisions);
+
+//    List<Revision> revisions = StackAppClient.getRevisionsById(2899207, RevisionRequestConfig.start().withFromDate(1000L));
+//    System.err.println(revisions);
+
+//    Revision revision = StackAppClient.getRevisionsByIdWithGuid(2899207, "a47eed38-7c34-4d15-9d8a-dfc438d76ac4");
+//    System.err.println(revision);
+
+//    Revision revision = StackAppClient.getRevisionsByIdWithGuid(2899207, "a47eed38-7c34-4d15-9d8a-dfc438d76ac4", RevisionRequestConfig.start().withFromDate(1000L));
+//    System.err.println(revision);
+
 //    Stats stats = StackAppClient.getStats();
 //    System.err.println(stats);
 
@@ -141,6 +161,12 @@ public class Test
 //    List<Comment> comments = StackAppClient.getCommentsForUser(25343, UsersByIdRequest.start().withPage(1));
 //    System.err.println(comments);
 
+//    List<Comment> comments = StackAppClient.getCommentsForUserThatMentionUser(23354, 22656);
+//    System.err.println(comments);
+
+//    List<Comment> comments = StackAppClient.getCommentsForUserThatMentionUser(23354, 22656, UsersByIdRequest.start().withPage(1));
+//    System.err.println(comments);
+
 //    List<Question> favorites = StackAppClient.getFavoritesForUser(25343);
 //    System.err.println(favorites);
 
@@ -159,8 +185,8 @@ public class Test
 //    List<Question> questions = StackAppClient.getQuestionsForUser(25343, AnswersForUserRequest.start().withPage(1));
 //    System.err.println(questions);
 
-    List<RepChange> repChanges = StackAppClient.getReputationForUser(22656);
-    System.err.println(repChanges);
+//    List<RepChange> repChanges = StackAppClient.getReputationForUser(22656);
+//    System.err.println(repChanges);
 
 //    List<RepChange> repChanges = StackAppClient.getReputationForUser(22656, ReputationForUserRequest.start().withPage(1));
 //    System.err.println(repChanges);

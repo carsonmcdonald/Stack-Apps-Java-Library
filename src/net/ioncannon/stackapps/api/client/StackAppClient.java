@@ -23,6 +23,7 @@
 package net.ioncannon.stackapps.api.client;
 
 import net.ioncannon.stackapps.api.response.*;
+import net.ioncannon.stackapps.api.response.Error;
 import net.ioncannon.stackapps.api.request.*;
 import com.sun.jersey.api.client.filter.GZIPContentEncodingFilter;
 import com.sun.jersey.api.client.WebResource;
@@ -145,19 +146,20 @@ public class StackAppClient
    * /answers/{id}/comments 	Gets the comments associated with the question/answer with 'id'.
    *
    * @param answerId The id of the answer to get.
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of comments for the given answer id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Comment> getAnswerComments(long answerId, AnswerCommentsRequest answerCommentsRequest) throws StackAppError
+  public static List<Comment> getAnswerComments(long answerId, AnswerCommentsRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("answers");
     request.pushPath(answerId);
     request.pushPath("comments");
 
-    if(answerCommentsRequest != null)
+    if(requestConfiguration != null)
     {
-      answerCommentsRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getCommentsInternal(request);
@@ -186,18 +188,19 @@ public class StackAppClient
    * /badges/{id} 	Gets the users that have been awarded the badge identified by 'id'.
    *
    * @param badgeId The badge id to get users for.
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of users who have the given badge.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<User> getUsersWhoHaveBadge(long badgeId, UsersWhoHaveBadgeRequest usersWhoHaveBadgeRequest) throws StackAppError
+  public static List<User> getUsersWhoHaveBadge(long badgeId, UsersWhoHaveBadgeRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
     request.pushPath(badgeId);
 
-    if(usersWhoHaveBadgeRequest != null)
+    if(requestConfiguration != null)
     {
-      usersWhoHaveBadgeRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getUsersInternal(request);
@@ -242,18 +245,19 @@ public class StackAppClient
    * /comments/{id} 	Gets comments by ids.
    *
    * @param commentId The id of the comment to get.
+   * @param requestConfiguration The configuration to use for this request.
    * @return The Comment with the given id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static Comment getComment(long commentId, CommentRequest commentRequest) throws StackAppError
+  public static Comment getComment(long commentId, CommentRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("comments");
     request.pushPath(commentId);
 
-    if(commentRequest != null)
+    if(requestConfiguration != null)
     {
-      commentRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     } 
 
     CommentList commentList = executeRequest(request, CommentList.class);
@@ -273,22 +277,37 @@ public class StackAppClient
     return getComment(commentId, null);
   }
 
-// todo /errors/{id} 	Simulates an error given a code
+  /**
+   * /errors/{id} 	Simulates an error given a code
+   *
+   * @param errorId The error id to simulate.
+   * @return An error represented by the given id
+   * @throws StackAppError Thrown when there is an api error.
+   */
+  public static Error getError(int errorId) throws StackAppError
+  {
+    StackAppRequest request = new StackAppRequest();
+    request.pushPath("errors");
+    request.pushPath(errorId);
+
+    return executeRequest(request, Error.class);
+  }
 
   /**
    * /questions 	Gets question summary information. By default, ordered by last activity, date decending.
    *
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of questions.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Question> getQuestions(QuestionRequest questionRequest) throws StackAppError
+  public static List<Question> getQuestions(QuestionRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
 
-    if(questionRequest != null)
+    if(requestConfiguration != null)
     {
-      questionRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getQuestionsInternal(request);
@@ -303,18 +322,19 @@ public class StackAppClient
    * /questions/{id} 	Gets a question with 'id' and its answers.
    *
    * @param questionId The id of the question to return.
+   * @param requestConfiguration The configuration to use for this request.
    * @return The question with the given question id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static Question getQuestionById(long questionId, QuestionByIdRequest questionByIdRequest) throws StackAppError
+  public static Question getQuestionById(long questionId, QuestionByIdRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
     request.pushPath(questionId);
 
-    if(questionByIdRequest != null)
+    if(requestConfiguration != null)
     {
-      questionByIdRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     QuestionList questionList = executeRequest(request, QuestionList.class);
@@ -338,19 +358,20 @@ public class StackAppClient
    * /questions/{id}/answers 	Gets any answers to the question with 'id'.
    *
    * @param questionId The id of the question to return answers for.
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of Answers.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Answer> getAnswersForQuestion(long questionId, QuestionByIdRequest answersForQuestionRequest) throws StackAppError
+  public static List<Answer> getAnswersForQuestion(long questionId, QuestionByIdRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
     request.pushPath(questionId);
     request.pushPath("answers");
 
-    if(answersForQuestionRequest != null)
+    if(requestConfiguration != null)
     {
-      answersForQuestionRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getAnswersInternal(request);
@@ -365,19 +386,20 @@ public class StackAppClient
    * /questions/{id}/comments 	Gets the comments associated with the question/answer with 'id'.
    *
    * @param questionId The id of the question to return comments for.
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of Comments.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Comment> getCommentsForQuestion(long questionId, CommentsForQuestionRequest commentsForQuestionRequest) throws StackAppError
+  public static List<Comment> getCommentsForQuestion(long questionId, CommentsForQuestionRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
     request.pushPath(questionId);
     request.pushPath("comments");
 
-    if(commentsForQuestionRequest != null)
+    if(requestConfiguration != null)
     {
-      commentsForQuestionRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getCommentsInternal(request);
@@ -418,19 +440,20 @@ public class StackAppClient
    * /questions/tagged/{tags} 	Gets questions that are tagged with "tags". By default, ordered by last activity, date descending.
    *
    * @param tag The tag to get questions for.
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of Questions.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Question> getQuestionsForTag(String tag, QuestionByIdRequest questionsForTagRequest) throws StackAppError
+  public static List<Question> getQuestionsForTag(String tag, QuestionByIdRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
     request.pushPath("tagged");
     request.pushPath(tag);
 
-    if(questionsForTagRequest != null)
+    if(requestConfiguration != null)
     {
-      questionsForTagRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getQuestionsInternal(request);
@@ -444,18 +467,19 @@ public class StackAppClient
   /**
    * /questions/unanswered 	Gets questions that have no upvoted answers.
    *
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of Questions.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Question> getUnansweredQuestions(QuestionRequest questionRequest) throws StackAppError
+  public static List<Question> getUnansweredQuestions(QuestionRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("questions");
     request.pushPath("unanswered");
 
-    if(questionRequest != null)
+    if(requestConfiguration != null)
     {
-      questionRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getQuestionsInternal(request);
@@ -466,9 +490,77 @@ public class StackAppClient
     return getUnansweredQuestions(null);
   }
 
-// todo /revisions/{id} 	Gets the post history revisions for the post with 'id'. Optionally, a specific revision may be requested by its 'revisionGuid'.
+  /**
+   * /revisions/{id} 	Gets the post history revisions for the post with 'id'. Optionally, a specific revision may be requested by its 'revisionGuid'.
+   *
+   * @param postId The id of the post to get revisions for.
+   * @param requestConfiguration The configuration to use for this request.
+   * @return A list of revisions for the given post id.
+   */
+  public static List<Revision> getRevisionsById(long postId, RevisionRequestConfig requestConfiguration)
+  {
+    StackAppRequest request = new StackAppRequest();
+    request.pushPath("revisions");
+    request.pushPath(postId);
 
-// todo /revisions/{id}/{revisionguid} 	Gets the post history revisions for the post with 'id'. Optionally, a specific revision may be requested by its 'revisionGuid'.
+    if(requestConfiguration != null)
+    {
+      requestConfiguration.mergeIntoRequest(request);
+    }
+
+    RevisionList revisionList = executeRequest(request, RevisionList.class);
+
+    List<Revision> revisions = new ArrayList<Revision>();
+
+    if(revisionList != null && revisionList.getRevisions() != null)
+    {
+      revisions.addAll(Arrays.asList(revisionList.getRevisions()));
+    }
+
+    return revisions;
+  }
+
+  public static List<Revision> getRevisionsById(long postId)
+  {
+    return getRevisionsById(postId, null);
+  }
+
+  /**
+   * /revisions/{id}/{revisionguid} 	Gets the post history revisions for the post with 'id'. Optionally, a specific revision may be requested by its 'revisionGuid'.
+   *
+   * @param postId The id of the post to get revisions for.
+   * @param revisionGuid The guid of the revision to query.
+   * @param requestConfiguration The configuration to use for this request.
+   * @return A list of revisions for the given post id.
+   */
+  public static Revision getRevisionsByIdWithGuid(long postId, String revisionGuid, RevisionRequestConfig requestConfiguration)
+  {
+    StackAppRequest request = new StackAppRequest();
+    request.pushPath("revisions");
+    request.pushPath(postId);
+    request.pushPath(revisionGuid);
+
+    if(requestConfiguration != null)
+    {
+      requestConfiguration.mergeIntoRequest(request);
+    }
+
+    RevisionList revisionList = executeRequest(request, RevisionList.class);
+
+    if(revisionList != null && revisionList.getRevisions() != null && revisionList.getRevisions().length > 0)
+    {
+      return revisionList.getRevisions()[0];
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  public static Revision getRevisionsByIdWithGuid(long postId, String revisionGuid)
+  {
+    return getRevisionsByIdWithGuid(postId, revisionGuid, null);
+  }
 
   /**
    * /stats 	Gets various system statistics, e.g. total questions, total answers, total tags.
@@ -496,30 +588,21 @@ public class StackAppClient
   /**
    * /tags 	Gets the tags on all questions, along with their usage counts.
    *
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of Tags.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Tag> getTags(TagsRequest tagsRequest) throws StackAppError
+  public static List<Tag> getTags(TagsRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("tags");
 
-    if(tagsRequest != null)
+    if(requestConfiguration != null)
     {
-      tagsRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
-// todo this can be refactored, combined with user tags
-    TagList tagList = executeRequest(request, TagList.class);
-
-    List<Tag> tags = new ArrayList<Tag>();
-
-    if(tagList != null && tagList.getTags() != null)
-    {
-      tags.addAll(Arrays.asList(tagList.getTags()));
-    }
-
-    return tags;
+    return getTagsInternal(request);
   }
 
   public static List<Tag> getTags() throws StackAppError
@@ -530,17 +613,18 @@ public class StackAppClient
   /**
    * /users 	Gets user summary information. By default, ordered by reputation, descending.
    *
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of Users.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<User> getUsers(UsersRequest usersRequest) throws StackAppError
+  public static List<User> getUsers(UsersRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
 
-    if(usersRequest != null)
+    if(requestConfiguration != null)
     {
-      usersRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getUsersInternal(request);
@@ -555,18 +639,19 @@ public class StackAppClient
    * /users/{id} 	Gets summary information for the user with 'id'.
    *
    * @param userId The id of the user to return.
+   * @param requestConfiguration The configuration to use for this request.
    * @return The user idtentified by the given id.
    * @throws StackAppError hrown when there is an api error.
    */
-  public static User getUser(long userId, UsersByIdRequest usersByIdRequest) throws StackAppError
+  public static User getUser(long userId, UsersByIdRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
     request.pushPath(userId);
 
-    if(usersByIdRequest != null)
+    if(requestConfiguration != null)
     {
-      usersByIdRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     UserList userList = executeRequest(request, UserList.class);
@@ -590,19 +675,20 @@ public class StackAppClient
    * /users/{id}/answers 	Gets answer summary information for the user with 'id'.
    *
    * @param userId The id of the user to return.
+   * @param requestConfiguration The configuration to use for this request.
    * @return List of answers for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Answer> getAnswersForUser(long userId, AnswersForUserRequest answersForUserRequest) throws StackAppError
+  public static List<Answer> getAnswersForUser(long userId, AnswersForUserRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("answers");
 
-    if(answersForUserRequest != null)
+    if(requestConfiguration != null)
     {
-      answersForUserRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getAnswersInternal(request);
@@ -634,19 +720,20 @@ public class StackAppClient
    * /users/{id}/comments 	Gets the comments that the user with 'id' has made, ordered by creation date descending.
    *  
    * @param userId User id to get comments for.
+   * @param requestConfiguration The configuration to use for this request.
    * @return List of Comments for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Comment> getCommentsForUser(long userId, UsersByIdRequest usersByIdRequest) throws StackAppError
+  public static List<Comment> getCommentsForUser(long userId, UsersByIdRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("comments");
 
-    if(usersByIdRequest != null)
+    if(requestConfiguration != null)
     {
-      usersByIdRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getCommentsInternal(request);
@@ -657,25 +744,54 @@ public class StackAppClient
     return getCommentsForUser(userId, null);
   }
 
-  // todo /users/{id}/comments/{toid} 	Gets the comments by user with 'id' that mention the user with 'toid'.
+  /**
+   * /users/{id}/comments/{toid} 	Gets the comments by user with 'id' that mention the user with 'toid'.
+   *
+   * @param userId User id to get comments for.
+   * @param mentionedUserId The user id that was mentioned.
+   * @param requestConfiguration The configuration to use for this request.
+   * @return List of Comments for the given user id.
+   * @throws StackAppError Thrown when there is an api error.
+   */
+  public static List<Comment> getCommentsForUserThatMentionUser(long userId, long mentionedUserId, UsersByIdRequest requestConfiguration)
+  {
+    StackAppRequest request = new StackAppRequest();
+    request.pushPath("users");
+    request.pushPath(userId);
+    request.pushPath("comments");
+    request.pushPath(mentionedUserId);
+
+    if(requestConfiguration != null)
+    {
+      requestConfiguration.mergeIntoRequest(request);
+    }
+
+    return getCommentsInternal(request);
+  }
+
+  public static List<Comment> getCommentsForUserThatMentionUser(long userId, long mentionedUserId)
+  {
+    return getCommentsForUserThatMentionUser(userId, mentionedUserId, null);
+  }
 
   /**
    * /users/{id}/favorites 	Gets summary information for the questions that have been favorited by the user with 'id'.
    *
    * @param userId User id to get favorites for
+   * @param requestConfiguration The configuration to use for this request.
    * @return List of favorite questions for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Question> getFavoritesForUser(long userId, AnswersForUserRequest favoritesForUserRequest) throws StackAppError
+  public static List<Question> getFavoritesForUser(long userId, AnswersForUserRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("favorites");
 
-    if(favoritesForUserRequest != null)
+    if(requestConfiguration != null)
     {
-      favoritesForUserRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getQuestionsInternal(request);
@@ -690,19 +806,20 @@ public class StackAppClient
    * /users/{id}/mentioned 	Gets comments that are directed at the user with 'id', ordered by creation date descending.
    *
    * @param userId User id to get mentions of.
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of comments that the user was mentioned in.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Comment> getMentionsForUser(long userId, AnswersForUserRequest mentionsForUserRequest) throws StackAppError
+  public static List<Comment> getMentionsForUser(long userId, AnswersForUserRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("mentioned");
 
-    if(mentionsForUserRequest != null)
+    if(requestConfiguration != null)
     {
-      mentionsForUserRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getCommentsInternal(request);
@@ -717,19 +834,20 @@ public class StackAppClient
    * /users/{id}/questions 	Gets question summary infomation for the user with 'id'.
    *
    * @param userId The user id to get questions for.
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of questions for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Question> getQuestionsForUser(long userId, AnswersForUserRequest questionsForUserRequest) throws StackAppError
+  public static List<Question> getQuestionsForUser(long userId, AnswersForUserRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("questions");
 
-    if(questionsForUserRequest != null)
+    if(requestConfiguration != null)
     {
-      questionsForUserRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     return getQuestionsInternal(request);
@@ -744,19 +862,20 @@ public class StackAppClient
    * /users/{id}/reputation 	Gets information on reputation changes for user with 'id'.
    * 
    * @param userId The user id to get reputation for.
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of rep changes.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<RepChange> getReputationForUser(long userId, ReputationForUserRequest reputationForUserRequest) throws StackAppError
+  public static List<RepChange> getReputationForUser(long userId, ReputationForUserRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("reputation");
 
-    if(reputationForUserRequest != null)
+    if(requestConfiguration != null)
     {
-      reputationForUserRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     RepChangeList repChangeList = executeRequest(request, RepChangeList.class);
@@ -780,31 +899,23 @@ public class StackAppClient
    * /users/{id}/tags 	Gets the tags that the user with 'id' has participated in.
    *
    * @param userId The user id to get tags for.
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of tags for the given user id.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<Tag> getTagsForUser(long userId, UsersRequest tagsForUserRequest) throws StackAppError
+  public static List<Tag> getTagsForUser(long userId, UsersRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("tags");
 
-    if(tagsForUserRequest != null)
+    if(requestConfiguration != null)
     {
-      tagsForUserRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
-    TagList tagList = executeRequest(request, TagList.class);
-
-    List<Tag> tags = new ArrayList<Tag>();
-
-    if(tagList != null && tagList.getTags() != null)
-    {
-      tags.addAll(Arrays.asList(tagList.getTags()));
-    }
-
-    return tags;
+    return getTagsInternal(request);
   }
 
   public static List<Tag> getTagsForUser(long userId) throws StackAppError
@@ -816,19 +927,20 @@ public class StackAppClient
    * /users/{id}/timeline 	Gets actions the user with 'id' has performed in descending chronological order.
    *
    * @param userId The user id to get a timeline for.
+   * @param requestConfiguration The configuration to use for this request.
    * @return A List of timeline entries.
    * @throws StackAppError Thrown when there is an api error.
    */
-  public static List<UserTimeline> getTimelineForUser(long userId, UsersByIdRequest timelineForUserRequest) throws StackAppError
+  public static List<UserTimeline> getTimelineForUser(long userId, UsersByIdRequest requestConfiguration) throws StackAppError
   {
     StackAppRequest request = new StackAppRequest();
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("timeline");
 
-    if(timelineForUserRequest != null)
+    if(requestConfiguration != null)
     {
-      timelineForUserRequest.mergeIntoRequest(request);
+      requestConfiguration.mergeIntoRequest(request);
     }
 
     UserTimelineList userTimelineList = executeRequest(request, UserTimelineList.class);
@@ -916,5 +1028,19 @@ public class StackAppClient
     }
 
     return users;
+  }
+
+  private static List<Tag> getTagsInternal(StackAppRequest request)
+  {
+    TagList tagList = executeRequest(request, TagList.class);
+
+    List<Tag> tags = new ArrayList<Tag>();
+
+    if(tagList != null && tagList.getTags() != null)
+    {
+      tags.addAll(Arrays.asList(tagList.getTags()));
+    }
+
+    return tags;
   }
 }

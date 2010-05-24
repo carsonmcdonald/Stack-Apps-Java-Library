@@ -20,43 +20,44 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.response;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Arrays;
+package net.ioncannon.stackapps.api.request;
 
 /**
  */
-
-@XmlRootElement
-public class RevisionList extends StackAppResponse
+public class RevisionRequestConfig extends BaseRequest
 {
-  private Revision revisions[];
-
-  public RevisionList()
+  public static RevisionRequestConfig start()
   {
+    return new RevisionRequestConfig();
   }
 
-  public RevisionList(Revision[] revisions)
+  /**
+   * fromDate (optional)
+
+    * start date to list revisions from
+    * number
+
+   * @param fromDate
+   * @return
+   */
+  public RevisionRequestConfig withFromDate(Long fromDate)
   {
-    this.revisions = revisions;
+    stackAppRequest.addQueryPart("fromdate", fromDate);
+    return this;
   }
 
-  public Revision[] getRevisions()
-  {
-    return revisions;
-  }
+  /**
+   * toDate (optional)
 
-  public void setRevisions(Revision[] revisions)
-  {
-    this.revisions = revisions;
-  }
+    * date to stop listing revisions at
+    * number
 
-  @Override
-  public String toString()
+   * @param toDate
+   * @return
+   */
+  public RevisionRequestConfig withToDate(Long toDate)
   {
-    return "RevisionList{" +
-        "revisions=" + (revisions == null ? null : Arrays.asList(revisions)) +
-        '}';
+    stackAppRequest.addQueryPart("todate", toDate);
+    return this;
   }
 }

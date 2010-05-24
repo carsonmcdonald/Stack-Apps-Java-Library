@@ -23,40 +23,52 @@
 package net.ioncannon.stackapps.api.response;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Arrays;
 
 /**
  */
 
 @XmlRootElement
-public class RevisionList extends StackAppResponse
+public class Error extends StackAppResponse
 {
-  private Revision revisions[];
+  private Integer code;
+  private String message;
 
-  public RevisionList()
+  public Error()
   {
   }
 
-  public RevisionList(Revision[] revisions)
+  public Error(Integer code, String message)
   {
-    this.revisions = revisions;
+    this.code = code;
+    this.message = message;
   }
 
-  public Revision[] getRevisions()
+  public Integer getCode()
   {
-    return revisions;
+    return code;
   }
 
-  public void setRevisions(Revision[] revisions)
+  public void setCode(Integer code)
   {
-    this.revisions = revisions;
+    this.code = code;
+  }
+
+  public String getMessage()
+  {
+    return message;
+  }
+
+  public void setMessage(String message)
+  {
+    this.message = message;
   }
 
   @Override
   public String toString()
   {
-    return "RevisionList{" +
-        "revisions=" + (revisions == null ? null : Arrays.asList(revisions)) +
+    return "Error{" +
+        "code=" + code +
+        ", message='" + message + '\'' +
         '}';
   }
 }
