@@ -20,47 +20,18 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.request;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlElement;
-import java.util.Arrays;
+import net.ioncannon.stackapps.api.client.StackAppRequest;
 
 /**
- *
- * http://api.stackoverflow.com/[version]/help/method?method=stats
  */
-
-@XmlRootElement
-public class StatsList extends StackAppResponse
+public abstract class BaseRequest
 {
-  private Stats stats[];
+  protected StackAppRequest stackAppRequest = new StackAppRequest();
 
-  public StatsList()
+  public void mergeIntoRequest(StackAppRequest originalStackAppRequest)
   {
-  }
-
-  public StatsList(Stats[] stats)
-  {
-    this.stats = stats;
-  }
-
-  @XmlElement(name="statistics")
-  public Stats[] getStats()
-  {
-    return stats;
-  }
-
-  public void setStats(Stats[] stats)
-  {
-    this.stats = stats;
-  }
-
-  @Override
-  public String toString()
-  {
-    return "net.ioncannon.stackapps.api.model.StatsList{" +
-        "stats=" + (stats == null ? null : Arrays.asList(stats)) +
-        '}';
+    stackAppRequest.mergeIntoRequest(originalStackAppRequest);
   }
 }

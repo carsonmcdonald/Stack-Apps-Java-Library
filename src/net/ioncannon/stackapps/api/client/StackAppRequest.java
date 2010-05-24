@@ -52,7 +52,47 @@ public class StackAppRequest
 
   public void addQueryPart(String key, String value)
   {
-    queryParts.put(key, value);
+    if(value != null)
+    {
+      queryParts.put(key, value);
+    }
+  }
+
+  public void addQueryPart(String key, Long value)
+  {
+    if(value != null)
+    {
+      queryParts.put(key, String.valueOf(value));
+    }
+  }
+
+  public void addQueryPart(String key, Integer value)
+  {
+    if(value != null)
+    {
+      queryParts.put(key, String.valueOf(value));
+    }
+  }
+
+  public void addQueryPart(String key, Boolean value)
+  {
+    if(value != null)
+    {
+      queryParts.put(key, value ? "true" : "false");
+    }
+  }
+
+  public void mergeIntoRequest(StackAppRequest originalStackAppRequest)
+  {
+    for(String pathPart : pathParts)
+    {
+      originalStackAppRequest.pushPath(pathPart);
+    }
+
+    for(String key : queryParts.keySet())
+    {
+      originalStackAppRequest.addQueryPart(key, queryParts.get(key));
+    }
   }
 
   public WebResource constructResource(Client client)

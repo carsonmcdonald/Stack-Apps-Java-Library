@@ -1,0 +1,35 @@
+<project name="Stack Apps Java Wrapper" default="jar">
+
+    <property name="build.dir" value="build"/>
+    <property name="deploy.dir" value="../deploy"/>
+    <property name="classes.dir" value="../deploy/classes"/>
+
+    <property name="version" value="0.1"/>
+
+    <path id="class.path">
+        <fileset dir="../lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean" description="Clear out the compile deploy directory.">
+        <delete dir="${deploy.dir}"/>
+    </target>
+
+    <target name="directories" description="Create needed directories.">
+        <mkdir dir="${deploy.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+    </target>
+
+    <target name="compile" depends="directories" description="Compile the java sources.">
+        <javac srcdir="../src" destdir="${classes.dir}" classpathref="class.path" debug="true"/>
+    </target>
+
+    <target name="jar" depends="compile" description="Create the library jar file.">
+        <jar destfile="${deploy.dir}/stackapps-${version}.jar">
+            <fileset dir="${deploy.dir}/classes">
+            </fileset>
+        </jar>
+    </target>
+
+</project>

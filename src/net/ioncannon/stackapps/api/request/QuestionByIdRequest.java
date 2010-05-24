@@ -20,47 +20,40 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.request;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlElement;
-import java.util.Arrays;
+import net.ioncannon.stackapps.api.client.StackAppRequest;
 
 /**
- *
- * http://api.stackoverflow.com/[version]/help/method?method=stats
  */
-
-@XmlRootElement
-public class StatsList extends StackAppResponse
+public class QuestionByIdRequest extends QuestionBaseRequest<QuestionByIdRequest>
 {
-  private Stats stats[];
-
-  public StatsList()
+  public static QuestionByIdRequest start()
   {
+    return new QuestionByIdRequest();
   }
 
-  public StatsList(Stats[] stats)
+/**
+body (optional)
+
+    * When "true", a post's body will be included in the response. Default is "false".
+    * boolean
+    */
+  public QuestionByIdRequest withBody(Boolean body)
   {
-    this.stats = stats;
+    stackAppRequest.addQueryPart("body", body);
+    return this;
   }
 
-  @XmlElement(name="statistics")
-  public Stats[] getStats()
-  {
-    return stats;
-  }
+/**
+comments (optional)
 
-  public void setStats(Stats[] stats)
+    * When "true", any comments on a post will be included in the response. Default is "false".
+    * boolean
+    */
+  public QuestionByIdRequest withComments(Boolean comments)
   {
-    this.stats = stats;
-  }
-
-  @Override
-  public String toString()
-  {
-    return "net.ioncannon.stackapps.api.model.StatsList{" +
-        "stats=" + (stats == null ? null : Arrays.asList(stats)) +
-        '}';
+    stackAppRequest.addQueryPart("comments", comments);
+    return this;
   }
 }

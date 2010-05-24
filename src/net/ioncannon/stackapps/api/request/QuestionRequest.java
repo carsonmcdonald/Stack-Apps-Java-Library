@@ -20,47 +20,53 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.model;
+package net.ioncannon.stackapps.api.request;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlElement;
-import java.util.Arrays;
+import net.ioncannon.stackapps.api.client.StackAppRequest;
 
 /**
- *
- * http://api.stackoverflow.com/[version]/help/method?method=stats
  */
-
-@XmlRootElement
-public class StatsList extends StackAppResponse
+public class QuestionRequest extends QuestionBaseRequest<QuestionRequest>
 {
-  private Stats stats[];
-
-  public StatsList()
+  public static QuestionRequest start()
   {
+    return new QuestionRequest();
   }
 
-  public StatsList(Stats[] stats)
+
+/**
+tagged (optional)
+
+    * List of tags questions must have
+    * string
+    */
+  public QuestionRequest withTagged(String tagged)
   {
-    this.stats = stats;
+    stackAppRequest.addQueryPart("tagged", tagged);
+    return this;
   }
 
-  @XmlElement(name="statistics")
-  public Stats[] getStats()
+/**
+body (optional)
+
+    * When "true", a post's body will be included in the response. Default is "false".
+    * boolean
+    */
+  public QuestionRequest withBody(Boolean body)
   {
-    return stats;
+    stackAppRequest.addQueryPart("body", body);
+    return this;
   }
 
-  public void setStats(Stats[] stats)
-  {
-    this.stats = stats;
-  }
+/**
+comments (optional)
 
-  @Override
-  public String toString()
+    * When "true", any comments on a post will be included in the response. Default is "false".
+    * boolean
+    */
+  public QuestionRequest withComments(Boolean comments)
   {
-    return "net.ioncannon.stackapps.api.model.StatsList{" +
-        "stats=" + (stats == null ? null : Arrays.asList(stats)) +
-        '}';
+    stackAppRequest.addQueryPart("comments", comments);
+    return this;
   }
 }
