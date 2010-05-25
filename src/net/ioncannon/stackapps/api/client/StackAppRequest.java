@@ -34,11 +34,25 @@ import java.util.HashMap;
  */
 public class StackAppRequest
 {
-  private static final String BASE_URL = "http://api.stackoverflow.com/"; // todo need urls for other services
+  public static final String STACKOVERFLOW_BASE_URL = "http://api.stackoverflow.com/";
+  public static final String SERVERFAULT_BASE_URL = "http://api.serverfault.com/";
+  public static final String SUPERUSER_BASE_URL = "http://api.superuser.com/";
+
   private static final String API_VERSION = "0.8";
+
+  private String baseUrl = STACKOVERFLOW_BASE_URL;
 
   private List<String> pathParts = new ArrayList<String>();
   private Map<String, String> queryParts = new HashMap<String, String>();
+
+  public StackAppRequest()
+  {
+  }
+
+  public StackAppRequest(String baseUrl)
+  {
+    this.baseUrl = baseUrl;
+  }
 
   public void pushPath(String pathPart)
   {
@@ -97,7 +111,7 @@ public class StackAppRequest
 
   public WebResource constructResource(Client client)
   {
-    WebResource resource = client.resource(BASE_URL).path(API_VERSION);
+    WebResource resource = client.resource(baseUrl).path(API_VERSION);
 
     for(String pathPart : pathParts)
     {

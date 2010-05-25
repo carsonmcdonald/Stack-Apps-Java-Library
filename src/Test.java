@@ -21,7 +21,11 @@
  */
 
 import net.ioncannon.stackapps.api.response.Error;
+import net.ioncannon.stackapps.api.response.Answer;
 import net.ioncannon.stackapps.api.client.StackAppClient;
+import net.ioncannon.stackapps.api.client.StackAppRequest;
+
+import java.util.List;
 
 /**
  */
@@ -30,6 +34,7 @@ public class Test
   public static void main(String[] args)
   {
 //    StackAppClient.setKey("<a key>");
+//    StackAppClient.setBaseUrl(StackAppRequest.SERVERFAULT_BASE_URL);
 
 //    Answer answer = StackAppClient.getAnswer(2491514);
 //    System.err.println(answer);
@@ -64,8 +69,8 @@ public class Test
 //    Comment comment = StackAppClient.getComment(2941458, CommentRequestConfiguration.start().withPage(1));
 //    System.err.println(comment);
 
-    Error error = StackAppClient.getError(4002);
-    System.err.println(error);
+//    Error error = StackAppClient.getError(4002);
+//    System.err.println(error);
 
 //    List<Question> questions = StackAppClient.getQuestions();
 //    System.err.println(questions);

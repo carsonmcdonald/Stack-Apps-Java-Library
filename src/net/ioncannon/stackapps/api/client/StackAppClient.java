@@ -49,6 +49,7 @@ public class StackAppClient
     client.addFilter(new GZIPContentEncodingFilter());
   }
 
+  private static String baseUrl = StackAppRequest.STACKOVERFLOW_BASE_URL;
   private static String apiKey = null;
 
   private static void processResponseForErrors(ClientResponse response) throws StackAppError
@@ -66,9 +67,14 @@ public class StackAppClient
     }
   }
 
-  public static void setKey(String key)
+  public static void setKey(String apiKey)
   {
-    apiKey = key;
+    StackAppClient.apiKey = apiKey;
+  }
+
+  public static void setBaseUrl(String baseUrl)
+  {
+    StackAppClient.baseUrl = baseUrl;
   }
 
   private static <T extends StackAppResponse> T executeRequest(StackAppRequest request, Class<T> tClass) throws StackAppError
@@ -115,7 +121,7 @@ public class StackAppClient
    */
   public static Answer getAnswer(long answerId, AnswerRequestConfiguration answerRequest) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("answers");
     request.pushPath(answerId);
 
@@ -152,7 +158,7 @@ public class StackAppClient
    */
   public static List<Comment> getAnswerComments(long answerId, AnswerCommentsRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("answers");
     request.pushPath(answerId);
     request.pushPath("comments");
@@ -178,7 +184,7 @@ public class StackAppClient
    */
   public static List<Badge> getBadges() throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("badges");
 
     return getBadgesInternal(request);
@@ -194,7 +200,7 @@ public class StackAppClient
    */
   public static List<User> getUsersWhoHaveBadge(long badgeId, UsersWhoHaveBadgeRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(badgeId);
 
@@ -219,7 +225,7 @@ public class StackAppClient
    */
   public static List<Badge> getNonTagBasedBadges() throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("badges");
     request.pushPath("name");
 
@@ -234,7 +240,7 @@ public class StackAppClient
    */
   public static List<Badge> getTagBasedBadges() throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("badges");
     request.pushPath("tags");
 
@@ -251,7 +257,7 @@ public class StackAppClient
    */
   public static Comment getComment(long commentId, CommentRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("comments");
     request.pushPath(commentId);
 
@@ -286,7 +292,7 @@ public class StackAppClient
    */
   public static Error getError(int errorId) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("errors");
     request.pushPath(errorId);
 
@@ -302,7 +308,7 @@ public class StackAppClient
    */
   public static List<Question> getQuestions(QuestionRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("questions");
 
     if(requestConfiguration != null)
@@ -328,7 +334,7 @@ public class StackAppClient
    */
   public static Question getQuestionById(long questionId, QuestionByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("questions");
     request.pushPath(questionId);
 
@@ -364,7 +370,7 @@ public class StackAppClient
    */
   public static List<Answer> getAnswersForQuestion(long questionId, QuestionByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("questions");
     request.pushPath(questionId);
     request.pushPath("answers");
@@ -392,7 +398,7 @@ public class StackAppClient
    */
   public static List<Comment> getCommentsForQuestion(long questionId, CommentsForQuestionRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("questions");
     request.pushPath(questionId);
     request.pushPath("comments");
@@ -419,7 +425,7 @@ public class StackAppClient
    */
   public static List<PostTimeline> getTimelineForQuestion(long questionId) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("questions");
     request.pushPath(questionId);
     request.pushPath("timeline");
@@ -446,7 +452,7 @@ public class StackAppClient
    */
   public static List<Question> getQuestionsForTag(String tag, QuestionByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("questions");
     request.pushPath("tagged");
     request.pushPath(tag);
@@ -473,7 +479,7 @@ public class StackAppClient
    */
   public static List<Question> getUnansweredQuestions(QuestionRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("questions");
     request.pushPath("unanswered");
 
@@ -499,7 +505,7 @@ public class StackAppClient
    */
   public static List<Revision> getRevisionsById(long postId, RevisionRequestConfigConfiguration requestConfiguration)
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("revisions");
     request.pushPath(postId);
 
@@ -535,7 +541,7 @@ public class StackAppClient
    */
   public static Revision getRevisionsByIdWithGuid(long postId, String revisionGuid, RevisionRequestConfigConfiguration requestConfiguration)
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("revisions");
     request.pushPath(postId);
     request.pushPath(revisionGuid);
@@ -570,7 +576,7 @@ public class StackAppClient
    */
   public static Stats getStats() throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("stats");
 
     StatsList statsList = executeRequest(request, StatsList.class);
@@ -594,7 +600,7 @@ public class StackAppClient
    */
   public static List<Tag> getTags(TagsRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("tags");
 
     if(requestConfiguration != null)
@@ -619,7 +625,7 @@ public class StackAppClient
    */
   public static List<User> getUsers(UsersRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
 
     if(requestConfiguration != null)
@@ -645,7 +651,7 @@ public class StackAppClient
    */
   public static User getUser(long userId, UsersByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
 
@@ -681,7 +687,7 @@ public class StackAppClient
    */
   public static List<Answer> getAnswersForUser(long userId, AnswersForUserRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("answers");
@@ -708,7 +714,7 @@ public class StackAppClient
    */
   public static List<Badge> getBadgesForUser(long userId) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("badges");
@@ -726,7 +732,7 @@ public class StackAppClient
    */
   public static List<Comment> getCommentsForUser(long userId, UsersByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("comments");
@@ -755,7 +761,7 @@ public class StackAppClient
    */
   public static List<Comment> getCommentsForUserThatMentionUser(long userId, long mentionedUserId, UsersByIdRequestConfiguration requestConfiguration)
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("comments");
@@ -784,7 +790,7 @@ public class StackAppClient
    */
   public static List<Question> getFavoritesForUser(long userId, AnswersForUserRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("favorites");
@@ -812,7 +818,7 @@ public class StackAppClient
    */
   public static List<Comment> getMentionsForUser(long userId, AnswersForUserRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("mentioned");
@@ -840,7 +846,7 @@ public class StackAppClient
    */
   public static List<Question> getQuestionsForUser(long userId, AnswersForUserRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("questions");
@@ -868,7 +874,7 @@ public class StackAppClient
    */
   public static List<RepChange> getReputationForUser(long userId, ReputationForUserRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("reputation");
@@ -905,7 +911,7 @@ public class StackAppClient
    */
   public static List<Tag> getTagsForUser(long userId, UsersRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("tags");
@@ -933,7 +939,7 @@ public class StackAppClient
    */
   public static List<UserTimeline> getTimelineForUser(long userId, UsersByIdRequestConfiguration requestConfiguration) throws StackAppError
   {
-    StackAppRequest request = new StackAppRequest();
+    StackAppRequest request = new StackAppRequest(baseUrl);
     request.pushPath("users");
     request.pushPath(userId);
     request.pushPath("timeline");
