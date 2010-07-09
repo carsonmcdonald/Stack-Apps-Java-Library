@@ -20,19 +20,45 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.request;
+package net.ioncannon.stackapps.api.response;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
+import java.util.Arrays;
 
 /**
- * todo: move common parts of every request here, page, pagesize, min, max, etc
  */
-public abstract class BaseRequestConfiguration
+@XmlRootElement
+public class AssociatedUserList extends StackAppResponse
 {
-  protected StackAppRequest stackAppRequest = new StackAppRequest();
+  private AssociatedUser associatedUsers[];
 
-  public void mergeIntoRequest(StackAppRequest originalStackAppRequest)
+  public AssociatedUserList()
   {
-    stackAppRequest.mergeIntoRequest(originalStackAppRequest);
+  }
+
+  public AssociatedUserList(long currentRateLimit, long maxRateLimit, AssociatedUser[] associatedUsers)
+  {
+    super(currentRateLimit, maxRateLimit);
+    this.associatedUsers = associatedUsers;
+  }
+
+  @XmlElement(name="associated_users")
+  public AssociatedUser[] getAssociatedUsers()
+  {
+    return associatedUsers;
+  }
+
+  public void setAssociatedUsers(AssociatedUser[] associatedUsers)
+  {
+    this.associatedUsers = associatedUsers;
+  }
+
+  @Override
+  public String toString()
+  {
+    return "AssociatedUserList{" +
+        "associatedUsers=" + (associatedUsers == null ? null : Arrays.asList(associatedUsers)) +
+        '}';
   }
 }

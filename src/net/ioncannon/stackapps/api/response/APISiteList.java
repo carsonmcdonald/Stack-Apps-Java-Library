@@ -20,19 +20,45 @@
  * THE SOFTWARE.
  */
 
-package net.ioncannon.stackapps.api.request;
+package net.ioncannon.stackapps.api.response;
 
-import net.ioncannon.stackapps.api.client.StackAppRequest;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
+import java.util.Arrays;
 
 /**
- * todo: move common parts of every request here, page, pagesize, min, max, etc
  */
-public abstract class BaseRequestConfiguration
+@XmlRootElement
+public class APISiteList extends StackAppResponse
 {
-  protected StackAppRequest stackAppRequest = new StackAppRequest();
+  private APISite apiSites[];
 
-  public void mergeIntoRequest(StackAppRequest originalStackAppRequest)
+  public APISiteList()
   {
-    stackAppRequest.mergeIntoRequest(originalStackAppRequest);
+  }
+
+  public APISiteList(long currentRateLimit, long maxRateLimit, APISite[] apiSites)
+  {
+    super(currentRateLimit, maxRateLimit);
+    this.apiSites = apiSites;
+  }
+
+  @XmlElement(name="api_sites")
+  public APISite[] getApiSites()
+  {
+    return apiSites;
+  }
+
+  public void setApiSites(APISite[] apiSites)
+  {
+    this.apiSites = apiSites;
+  }
+
+  @Override
+  public String toString()
+  {
+    return "AnswerList(" + getMaxRateLimit() + "/" + getCurrentRateLimit() + "){" +
+        ", apiSites=" + (apiSites == null ? null : Arrays.asList(apiSites)) +
+        '}';
   }
 }

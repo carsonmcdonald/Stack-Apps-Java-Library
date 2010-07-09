@@ -50,6 +50,7 @@ public class StackAppClient
   }
 
   private static String baseUrl = StackAppRequest.STACKOVERFLOW_BASE_URL;
+  private static String stackAuthBaseUrl = StackAppRequest.STACKAUTH_BASE_URL;
   private static String apiKey = null;
 
   private static void processResponseForErrors(ClientResponse response) throws StackAppError
@@ -98,9 +99,25 @@ public class StackAppClient
 
       T rValue = response.getEntity(tClass);
 
+
       MultivaluedMap headers = response.getHeaders();
-      rValue.setCurrentRateLimit(Long.parseLong((String)((List)headers.get("X-RateLimit-Current")).get(0)));
-      rValue.setMaxRateLimit(Long.parseLong((String)((List)headers.get("X-RateLimit-Max")).get(0)));
+
+      if(headers.containsKey("X-RateLimit-Current"))
+      {
+        rValue.setCurrentRateLimit(Long.parseLong((String)((List)headers.get("X-RateLimit-Current")).get(0)));
+      }
+      else
+      {
+        rValue.setCurrentRateLimit(-1);
+      }
+      if(headers.containsKey("X-RateLimit-Max"))
+      {
+        rValue.setMaxRateLimit(Long.parseLong((String)((List)headers.get("X-RateLimit-Max")).get(0)));
+      }
+      else
+      {
+        rValue.setMaxRateLimit(-1);
+      }
 
       return rValue;
     }
@@ -112,7 +129,7 @@ public class StackAppClient
   }
 
   /**
-   * /answers/{id}  	Gets an answer by its Id.
+   * /answers/{id}  	Gets the set of answers enumerated in id
    *
    * @param answerId The id of the answer to get.
    * @param answerRequest Any non-default configuration for this request.
@@ -149,7 +166,7 @@ public class StackAppClient
 
 
   /**
-   * /answers/{id}/comments 	Gets the comments associated with the question/answer with 'id'.
+   * /answers/{id}/comments 	Gets the comments associated with a set of answers.
    *
    * @param answerId The id of the answer to get.
    * @param requestConfiguration The configuration to use for this request.
@@ -177,7 +194,7 @@ public class StackAppClient
   }
 
   /**
-   * /badges 	Gets all standard, non-tag-based badges in alphabetical order.
+   * /badges         Gets all badges, in alphabetical order.
    *
    * @return A List of all badges.
    * @throws StackAppError Thrown when there is an api error.
@@ -191,7 +208,7 @@ public class StackAppClient
   }
 
   /**
-   * /badges/{id} 	Gets the users that have been awarded the badge identified by 'id'.
+   * /badges/{id}    Gets the users that have been awarded the badges identified in '
    *
    * @param badgeId The badge id to get users for.
    * @param requestConfiguration The configuration to use for this request.
@@ -218,7 +235,7 @@ public class StackAppClient
   }
 
   /**
-   * /badges/name 	Gets all standard, non-tag-based badges in alphabetical order.
+   * /badges/name    Gets all standard, non-tag-based badges in alphabetical order.
    *
    * @return A List of non-tag-based badges.
    * @throws StackAppError Thrown when there is an api error.
@@ -233,7 +250,7 @@ public class StackAppClient
   }
 
   /**
-   * /badges/tags 	Gets all tag-based badges in alphabetical order.
+   * /badges/tags    Gets all tag-based badges in alphabetical order.
    *
    * @return All tag-based badges.
    * @throws StackAppError Thrown when there is an api error.
@@ -300,7 +317,36 @@ public class StackAppClient
   }
 
   /**
-   * /questions 	Gets question summary information. By default, ordered by last activity, date decending.
+   * /posts/{id}/comments    Gets the comments associated with a set of posts (questi ons and/or answers). 
+   *
+   * @param postId The id of the post to get comments.
+   * @param requestConfiguration The configuration to use for this request.
+   * @return A List of Comments on the given post.
+   * @throws StackAppError Thrown when there is an api error.
+   */
+  public static List<Comment> getPostComments(long postId, CommentRequestConfiguration requestConfiguration) throws StackAppError
+  {
+    StackAppRequest request = new StackAppRequest(baseUrl);
+    request.pushPath("posts");
+    request.pushPath(postId);
+    request.pushPath("comments");
+
+    if(requestConfiguration != null)
+    {
+      requestConfiguration.mergeIntoRequest(request);
+    } 
+
+    return getCommentsInternal(request);
+  }
+
+  public static List<Comment> getPostComment(long postId) throws StackAppError
+  {
+    return getPostComments(postId, null);
+  }
+
+
+  /**
+   * /questions      Gets question summary information.
    *
    * @param requestConfiguration The configuration to use for this request.
    * @return A List of questions.
@@ -325,7 +371,7 @@ public class StackAppClient
   }
 
   /**
-   * /questions/{id} 	Gets a question with 'id' and its answers.
+   * /questions/{id}         Gets the set questions identified in 'id' and their answers.
    *
    * @param questionId The id of the question to return.
    * @param requestConfiguration The configuration to use for this request.
@@ -361,7 +407,7 @@ public class StackAppClient
   }
 
   /**
-   * /questions/{id}/answers 	Gets any answers to the question with 'id'.
+   * /questions/{id}/answers         Gets any answers to the question in 'id'.
    *
    * @param questionId The id of the question to return answers for.
    * @param requestConfiguration The configuration to use for this request.
@@ -389,7 +435,7 @@ public class StackAppClient
   }
 
   /**
-   * /questions/{id}/comments 	Gets the comments associated with the question/answer with 'id'.
+   * /questions/{id}/comments        Gets the comments associated with a set of questions.
    *
    * @param questionId The id of the question to return comments for.
    * @param requestConfiguration The configuration to use for this request.
@@ -417,7 +463,7 @@ public class StackAppClient
   }
 
   /**
-   * /questions/{id}/timeline 	Gets the timeline of events for the question with 'id'.
+   * /questions/{id}/timeline        Gets the timeline of events for the questions in 'id'.
    *
    * @param questionId The id of the question to return comments for.
    * @return A List of Comments.
@@ -440,34 +486,6 @@ public class StackAppClient
     }
 
     return postTimelines;
-  }
-
-  /**
-   * /questions/tagged/{tags} 	Gets questions that are tagged with "tags". By default, ordered by last activity, date descending.
-   *
-   * @param tag The tag to get questions for.
-   * @param requestConfiguration The configuration to use for this request.
-   * @return A List of Questions.
-   * @throws StackAppError Thrown when there is an api error.
-   */
-  public static List<Question> getQuestionsForTag(String tag, QuestionByIdRequestConfiguration requestConfiguration) throws StackAppError
-  {
-    StackAppRequest request = new StackAppRequest(baseUrl);
-    request.pushPath("questions");
-    request.pushPath("tagged");
-    request.pushPath(tag);
-
-    if(requestConfiguration != null)
-    {
-      requestConfiguration.mergeIntoRequest(request);
-    }
-
-    return getQuestionsInternal(request);
-  }
-
-  public static List<Question> getQuestionsForTag(String tag) throws StackAppError
-  {
-    return getQuestionsForTag(tag, null);
   }
 
   /**
@@ -497,7 +515,7 @@ public class StackAppClient
   }
 
   /**
-   * /revisions/{id} 	Gets the post history revisions for the post with 'id'. Optionally, a specific revision may be requested by its 'revisionGuid'.
+   * /revisions/{id}         Gets the post history revisions for a set of posts in 'id'.
    *
    * @param postId The id of the post to get revisions for.
    * @param requestConfiguration The configuration to use for this request.
@@ -532,7 +550,7 @@ public class StackAppClient
   }
 
   /**
-   * /revisions/{id}/{revisionguid} 	Gets the post history revisions for the post with 'id'. Optionally, a specific revision may be requested by its 'revisionGuid'.
+   * /revisions/{id}/{revisionguid}  Get a specific post revision.
    *
    * @param postId The id of the post to get revisions for.
    * @param revisionGuid The guid of the revision to query.
@@ -569,9 +587,29 @@ public class StackAppClient
   }
 
   /**
-   * /stats 	Gets various system statistics, e.g. total questions, total answers, total tags.
+   * /search         Searches questions. One of intitle, tagged, or nottagged must be set. Searches that are purely text based should be routed through a third-party search engine, for performance reasons.
    *
-   * @return A List of Stats.
+   * @param requestConfiguration The configuration to use for this request.
+   * @return A List of questions.
+   * @throws StackAppError Thrown when there is an api error.
+   */
+  public static List<Question> searchQuestions(SearchQuestionsRequestConfiguration requestConfiguration) throws StackAppError
+  {
+    StackAppRequest request = new StackAppRequest(baseUrl);
+    request.pushPath("search");
+
+    if(requestConfiguration != null)
+    {
+      requestConfiguration.mergeIntoRequest(request);
+    }
+
+    return getQuestionsInternal(request);
+  }
+
+  /**
+   * /stats  Gets various system statistics.
+   *
+   * @return A Stats object.
    * @throws StackAppError Thrown when there is an api error.
    */
   public static Stats getStats() throws StackAppError
@@ -592,7 +630,7 @@ public class StackAppClient
   }
 
   /**
-   * /tags 	Gets the tags on all questions, along with their usage counts.
+   * /tags   Gets the tags on all questions, along with their usage counts.
    *
    * @param requestConfiguration The configuration to use for this request.
    * @return A List of Tags.
@@ -617,7 +655,7 @@ public class StackAppClient
   }
 
   /**
-   * /users 	Gets user summary information. By default, ordered by reputation, descending.
+   * /users  Gets user summary information.
    *
    * @param requestConfiguration The configuration to use for this request.
    * @return A List of Users.
@@ -642,7 +680,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id} 	Gets summary information for the user with 'id'.
+   * /users/{id}     Gets summary information for a set of users.
    *
    * @param userId The id of the user to return.
    * @param requestConfiguration The configuration to use for this request.
@@ -678,7 +716,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id}/answers 	Gets answer summary information for the user with 'id'.
+   * /users/{id}/answers     Gets answer summary information for a set of users.
    *
    * @param userId The id of the user to return.
    * @param requestConfiguration The configuration to use for this request.
@@ -706,7 +744,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id}/badges 	Gets the badges that have been awarded to the user with 'id'.
+   * /users/{id}/badges      Gets the badges that have been awarded to a set of users.
    *
    * @param userId The user id to get the badges for.
    * @return A list of badges for the given user id.
@@ -723,7 +761,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id}/comments 	Gets the comments that the user with 'id' has made, ordered by creation date descending.
+   * /users/{id}/comments    Gets the comments that a set of users have made.
    *  
    * @param userId User id to get comments for.
    * @param requestConfiguration The configuration to use for this request.
@@ -751,7 +789,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id}/comments/{toid} 	Gets the comments by user with 'id' that mention the user with 'toid'.
+   * /users/{id}/comments/{toid}     Gets the comments by a set of users that mention the user with 'toid'.
    *
    * @param userId User id to get comments for.
    * @param mentionedUserId The user id that was mentioned.
@@ -781,7 +819,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id}/favorites 	Gets summary information for the questions that have been favorited by the user with 'id'.
+   * /users/{id}/favorites   Gets summary information for the questions that have been favorited by a set of users.
    *
    * @param userId User id to get favorites for
    * @param requestConfiguration The configuration to use for this request.
@@ -809,7 +847,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id}/mentioned 	Gets comments that are directed at the user with 'id', ordered by creation date descending.
+   * /users/{id}/mentioned   Gets comments that are directed at a set of users.
    *
    * @param userId User id to get mentions of.
    * @param requestConfiguration The configuration to use for this request.
@@ -837,7 +875,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id}/questions 	Gets question summary infomation for the user with 'id'.
+   * /users/{id}/questions   Gets question summary information for a set of users.
    *
    * @param userId The user id to get questions for.
    * @param requestConfiguration The configuration to use for this request.
@@ -865,7 +903,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id}/reputation 	Gets information on reputation changes for user with 'id'.
+   * /users/{id}/reputation  Gets information on reputation changes for a set of users.
    * 
    * @param userId The user id to get reputation for.
    * @param requestConfiguration The configuration to use for this request.
@@ -902,7 +940,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id}/tags 	Gets the tags that the user with 'id' has participated in.
+   * /users/{id}/tags        Gets the tags that a set of users has participated in.
    *
    * @param userId The user id to get tags for.
    * @param requestConfiguration The configuration to use for this request.
@@ -930,7 +968,7 @@ public class StackAppClient
   }
 
   /**
-   * /users/{id}/timeline 	Gets actions the user with 'id' has performed in descending chronological order.
+   * /users/{id}/timeline    Gets actions a set of users have performed.
    *
    * @param userId The user id to get a timeline for.
    * @param requestConfiguration The configuration to use for this request.
@@ -964,6 +1002,78 @@ public class StackAppClient
   public static List<UserTimeline> getTimelineForUser(long userId) throws StackAppError
   {
     return getTimelineForUser(userId, null);
+  }
+
+  /**
+   * /users/moderators       Gets all the moderators on this site.
+   *
+   * @param requestConfiguration The configuration to use for this request.
+   * @return A List of users who are moderators.
+   * @throws StackAppError Thrown when there is an api error.
+   */
+  public static List<User> getModerators(UsersModeratorsRequestConfiguration requestConfiguration) throws StackAppError
+  {
+    StackAppRequest request = new StackAppRequest(baseUrl);
+    request.pushPath("users");
+    request.pushPath("moderators");
+
+    if(requestConfiguration != null)
+    {
+      requestConfiguration.mergeIntoRequest(request);
+    }
+
+    return getUsersInternal(request);
+  }
+
+  /**
+   * StackAuth Route
+   * /sites  Returns a list of all the sites in the StackExchange network.
+   *
+   * @return A List of APISite objects.
+   * @throws StackAppError Thrown when there is an api error.
+   */
+  public static List<APISite> getSites() throws StackAppError
+  {
+    StackAppRequest request = new StackAppRequest(stackAuthBaseUrl);
+    request.pushPath("sites");
+
+    APISiteList sitesList = executeRequest(request, APISiteList.class);
+
+    List<APISite> apiSites = new ArrayList<APISite>();
+
+    if(sitesList != null && sitesList.getApiSites() != null)
+    {
+      apiSites.addAll(Arrays.asList(sitesList.getApiSites()));
+    }
+
+    return apiSites;
+  }
+
+  /**
+   * StackAuth Route
+   * /users/{id}/associated  Gets all the associated user accounts across the StackExchange network as identified by the given association_id.
+   *
+   * @param associationId The user's association id to find associated site users of.
+   * @return A List of AssociatedUser objects.
+   * @throws StackAppError Thrown when there is an api error.
+   */
+  public static List<AssociatedUser> getUserAssociations(String associationId) throws StackAppError
+  {
+    StackAppRequest request = new StackAppRequest(stackAuthBaseUrl);
+    request.pushPath("users");
+    request.pushPath(associationId);
+    request.pushPath("associated");
+
+    AssociatedUserList associatedUserList = executeRequest(request, AssociatedUserList.class);
+
+    List<AssociatedUser> associatedUsers = new ArrayList<AssociatedUser>();
+
+    if(associatedUserList != null && associatedUserList.getAssociatedUsers() != null)
+    {
+      associatedUsers.addAll(Arrays.asList(associatedUserList.getAssociatedUsers()));
+    }
+
+    return associatedUsers;
   }
 
   private static List<Question> getQuestionsInternal(StackAppRequest request)

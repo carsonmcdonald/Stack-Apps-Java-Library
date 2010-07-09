@@ -35,10 +35,12 @@ import java.util.HashMap;
 public class StackAppRequest
 {
   public static final String STACKOVERFLOW_BASE_URL = "http://api.stackoverflow.com/";
+  public static final String META_STACKOVERFLOW_BASE_URL = "http://api.meta.stackoverflow.com/";
   public static final String SERVERFAULT_BASE_URL = "http://api.serverfault.com/";
   public static final String SUPERUSER_BASE_URL = "http://api.superuser.com/";
+  public static final String STACKAUTH_BASE_URL = "http://stackauth.com/";
 
-  private static final String API_VERSION = "0.8";
+  private static final String API_VERSION = "0.9";
 
   private String baseUrl = STACKOVERFLOW_BASE_URL;
 

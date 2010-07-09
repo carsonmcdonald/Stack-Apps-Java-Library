@@ -20,10 +20,13 @@
  * THE SOFTWARE.
  */
 
+import net.ioncannon.stackapps.api.response.*;
 import net.ioncannon.stackapps.api.response.Error;
-import net.ioncannon.stackapps.api.response.Answer;
 import net.ioncannon.stackapps.api.client.StackAppClient;
 import net.ioncannon.stackapps.api.client.StackAppRequest;
+import net.ioncannon.stackapps.api.request.UsersModeratorsRequestConfiguration;
+import net.ioncannon.stackapps.api.request.SearchQuestionsRequestConfiguration;
+import net.ioncannon.stackapps.api.request.CommentRequestConfiguration;
 
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class Test
 {
   public static void main(String[] args)
   {
-//    StackAppClient.setKey("<a key>");
+    StackAppClient.setKey("dFHKCsy2NE2pUg7la0cKAw");
 //    StackAppClient.setBaseUrl(StackAppRequest.SERVERFAULT_BASE_URL);
 
 //    Answer answer = StackAppClient.getAnswer(2491514);
@@ -71,6 +74,9 @@ public class Test
 
 //    Error error = StackAppClient.getError(4002);
 //    System.err.println(error);
+
+//    List<Comment> comments = StackAppClient.getPostComments(2892605, CommentRequestConfiguration.start().withPage(1));
+//    System.err.println(comments);
 
 //    List<Question> questions = StackAppClient.getQuestions();
 //    System.err.println(questions);
@@ -113,6 +119,9 @@ public class Test
 
 //    List<Revision> revisions = StackAppClient.getRevisionsById(2899207);
 //    System.err.println(revisions);
+
+//    List<Question> questions = StackAppClient.searchQuestions(SearchQuestionsRequestConfiguration.start().withInTitle("java").withPage(1));
+//    System.err.println(questions);
 
 //    List<Revision> revisions = StackAppClient.getRevisionsById(2899207, RevisionRequestConfigConfiguration.start().withFromDate(1000L));
 //    System.err.println(revisions);
@@ -200,5 +209,14 @@ public class Test
 
 //    List<UserTimeline> userTimelines = StackAppClient.getTimelineForUser(25343, UsersByIdRequestConfiguration.start().withPage(1));
 //    System.err.println(userTimelines);
+
+//    List<User> moderators = StackAppClient.getModerators(UsersModeratorsRequestConfiguration.start().withPage(1));
+//    System.err.println(moderators);
+
+//    List<APISite> siteAPIs = StackAppClient.getSites();
+//    System.err.println(siteAPIs);
+
+    List<AssociatedUser> associatedUsers = StackAppClient.getUserAssociations("60713da3-eee9-4197-89cb-9b5717bd29f9");
+    System.err.println(associatedUsers);
   }
 }

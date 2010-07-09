@@ -47,6 +47,7 @@ public class User
   private long upVoteCount;
   private long downVoteCount;
   private long acceptRate;
+  private String associationId;
   private String userQuestionsUrl;
   private String userAnswersUrl;
   private String userFavoritesUrl;
@@ -63,7 +64,7 @@ public class User
   {
   }
 
-  public User(long userId, String userType, long creationDate, String displayName, long reputation, String emailHash, long age, long lastAccessDate, String websiteUrl, String location, String aboutMe, long questionCount, long answerCount, long viewCount, long upVoteCount, long downVoteCount, long acceptRate, String userQuestionsUrl, String userAnswersUrl, String userFavoritesUrl, String userTagsUrl, String userBadgesUrl, String userTimelineUrl, String userMentionedUrl, String userCommentsUrl, String userReputationUrl, BadgeCount badgeCount, long timedPenaltyDate)
+  public User(long userId, String userType, long creationDate, String displayName, long reputation, String emailHash, long age, long lastAccessDate, String websiteUrl, String location, String aboutMe, long questionCount, long answerCount, long viewCount, long upVoteCount, long downVoteCount, long acceptRate, String associationId, String userQuestionsUrl, String userAnswersUrl, String userFavoritesUrl, String userTagsUrl, String userBadgesUrl, String userTimelineUrl, String userMentionedUrl, String userCommentsUrl, String userReputationUrl, BadgeCount badgeCount, long timedPenaltyDate)
   {
     this.userId = userId;
     this.userType = userType;
@@ -82,6 +83,7 @@ public class User
     this.upVoteCount = upVoteCount;
     this.downVoteCount = downVoteCount;
     this.acceptRate = acceptRate;
+    this.associationId = associationId;
     this.userQuestionsUrl = userQuestionsUrl;
     this.userAnswersUrl = userAnswersUrl;
     this.userFavoritesUrl = userFavoritesUrl;
@@ -279,6 +281,17 @@ public class User
     this.acceptRate = acceptRate;
   }
 
+  @XmlElement(name="association_id")
+  public String getAssociationId()
+  {
+    return associationId;
+  }
+
+  public void setAssociationId(String associationId)
+  {
+    this.associationId = associationId;
+  }
+
   @XmlElement(name="user_questions_url")
   public String getUserQuestionsUrl()
   {
@@ -421,6 +434,7 @@ public class User
         ", upVoteCount=" + upVoteCount +
         ", downVoteCount=" + downVoteCount +
         ", acceptRate=" + acceptRate +
+        ", associationId='" + associationId + '\'' +
         ", userQuestionsUrl='" + userQuestionsUrl + '\'' +
         ", userAnswersUrl='" + userAnswersUrl + '\'' +
         ", userFavoritesUrl='" + userFavoritesUrl + '\'' +
